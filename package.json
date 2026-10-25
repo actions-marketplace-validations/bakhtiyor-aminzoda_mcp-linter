@@ -1,0 +1,60 @@
+{
+  "name": "mcp-doctor",
+  "version": "0.1.0",
+  "description": "Audit a Model Context Protocol server: protocol conformance, tool safety annotations, schema quality and prompt-injection heuristics. Zero runtime dependencies.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "linter",
+    "audit",
+    "cli",
+    "sarif",
+    "ai-agents",
+    "llm"
+  ],
+  "author": "Bakhtior Aminzoda <bakhtiyor.aminzoda@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bakhtiyor-aminzoda/mcp-doctor.git"
+  },
+  "homepage": "https://github.com/bakhtiyor-aminzoda/mcp-doctor#readme",
+  "bugs": {
+    "url": "https://github.com/bakhtiyor-aminzoda/mcp-doctor/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "mcp-doctor": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "action.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint:docs": "node scripts/check-rule-docs.mjs",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
