@@ -4,6 +4,7 @@
 
 **Zero-dependency security auditor and protocol linter for Model Context Protocol (MCP) servers.**
 
+[![npm version](https://img.shields.io/npm/v/mcp-linter.svg)](https://www.npmjs.com/package/mcp-linter)
 [![CI](https://github.com/bakhtiyor-aminzoda/mcp-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhtiyor-aminzoda/mcp-doctor/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](https://nodejs.org/)
