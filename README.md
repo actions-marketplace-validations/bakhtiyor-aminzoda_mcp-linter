@@ -11,7 +11,7 @@
 [![MCP Spec](https://img.shields.io/badge/MCP%20Spec-2024--11--05-blueviolet.svg)](https://modelcontextprotocol.io/)
 [![SARIF Support](https://img.shields.io/badge/SARIF-v2.1.0-orange.svg)](https://sarifweb.azurewebsites.net/)
 
-[Quick Start](#-quick-start) • [Why mcp-doctor](#-why-mcp-doctor) • [Rules Catalog](#-rules-catalog) • [GitHub Action](#-github-action--sarif-integration) • [Configuration](#-configuration) • [API](#-programmatic-api)
+[Quick Start](#-quick-start) • [Why mcp-doctor](#-why-mcp-doctor) • [Rules Catalog](#-rules-catalog) • [Autofix](#-autofix-engine) • [Mock Server](#-built-in-mock-server) • [GitHub Action](#-github-action--sarif-integration) • [Audit Report](AUDIT_REPORT.md) • [Roadmap](ROADMAP.md)
 
 </div>
 
@@ -40,33 +40,35 @@ Run instantly without installing via `npx`:
 # Audit an MCP server (Node.js, Python, Go, Rust, or binary)
 npx mcp-doctor -- npx -y @modelcontextprotocol/server-filesystem .
 
-# Audit a local TypeScript / JavaScript MCP build
-npx mcp-doctor -- node dist/index.js
+# Audit built-in reference mock server (zero setup required)
+npx mcp-doctor -- npx mcp-doctor mock clean
 
-# Audit a Python MCP server
-npx mcp-doctor -- uv run python -m server
+# Run with automated fix suggestions
+npx mcp-doctor --fix -- node dist/index.js
+
+# Audit and output GitHub Flavored Markdown report
+npx mcp-doctor --format markdown -- node dist/index.js
 ```
 
 ### CLI Output Example
 
 ```text
-🩺 mcp-doctor v0.1.0 auditing "node dist/server.js"
-Protocol: 2024-11-05 | Server: sqlite-explorer (v1.0.0)
-Discovered: 4 tools, 2 resources, 1 prompt
+mcp-doctor 0.1.0
+  server     sqlite-explorer@1.0.0
+  protocol   2024-11-05
+  command    node dist/server.js
+  exposed    4 tools, 2 resources, 0 templates, 1 prompt
+  scorecard  [Grade B] 85/100 (WARN)
 
-  [ERROR] tools/destructive-without-hint
-    tool "drop_table" looks destructive but does not set destructiveHint
-    Hint: Set annotations.destructiveHint = true, or rename the tool if it is not destructive.
+warn  tools/parameter-description-missing (1 occurrence)
+  query                       tool "query" parameter "limit" has no description
+                                fix: Describe the expected value and, where useful, give an example.
 
-  [WARN] tools/parameter-description-missing
-    tool "query" parameter "limit" has no description
-    Hint: Add a clear description for every parameter so models know expected format.
+note  protocol/instructions-missing (1 occurrence)
+  (server)                    initialize result has no instructions
+                                fix: Add a short instructions string describing what this server is for.
 
-  [INFO] protocol/instructions-missing
-    initialize result has no instructions
-    Hint: Add short instructions describing what this server is for.
-
-Audit Summary: 1 error, 1 warning, 1 info (3 findings)
+0 errors  1 warning  1 note  •  [Grade: B] 85/100 (WARN)
 ```
 
 ---
@@ -76,21 +78,59 @@ Audit Summary: 1 error, 1 warning, 1 info (3 findings)
 ```text
 Usage:
   mcp-doctor [options] -- <command> [args...]
+  mcp-doctor mock [clean|vulnerable|empty|stdio-pollution]
 
 Options:
-  -f, --format <fmt>     Output format: pretty, json, sarif (default: pretty)
+  -f, --format <fmt>     Output format: pretty, json, sarif, markdown (default: pretty)
   -o, --output <file>    Write the report to a file instead of stdout
   -t, --timeout <ms>     Per-request timeout in milliseconds (default: 10000)
       --cwd <dir>        Working directory for the server process
       --env <KEY=VALUE>  Extra environment variable (repeatable)
       --fail-on <level>  Exit 1 when findings reach: error, warn, info, none (default: error)
       --config <file>    Path to .mcp-doctor.json configuration file
+      --init             Generate a starter .mcp-doctor.json in current directory
+      --fix              Generate automated remediation patches for detected issues
       --max-pages <n>    Cap on paginated list calls (default: 50)
       --no-color         Disable ANSI colors
       --list-rules       Print all registered rule IDs and summaries
       --explain <rule>   Print detailed rationale for a specific rule
   -V, --version          Print version and exit
   -h, --help             Show help
+```
+
+---
+
+## 🔧 Autofix Engine
+
+Run with `--fix` to receive machine-readable and actionable patches for common schema defects:
+
+```bash
+npx mcp-doctor --fix -- node ./server.js
+```
+
+```text
+🔧 Autofix Suggestions (2 available):
+  delete_database Mark tool "delete_database" as destructive
+    Enforce destructiveHint = true so hosts like Claude Desktop request user confirmation.
+    Suggested Patch: {"annotations":{"destructiveHint":true,"readOnlyHint":false}}
+
+  (server) Add top-level server instructions
+    Explain the server's purpose to LLM models during initialization.
+    Suggested Patch: {"instructions":"This MCP server provides capabilities and tools to assist with tasks."}
+```
+
+---
+
+## 🧪 Built-in Mock Server
+
+`mcp-doctor` includes an internal reference mock server, enabling instant testing without external dependencies:
+
+```bash
+# Test clean compliant server (Grade A+)
+mcp-doctor -- mcp-doctor mock clean
+
+# Test vulnerable server demonstrating prompt injection & destructive bugs (Grade F)
+mcp-doctor -- mcp-doctor mock vulnerable
 ```
 
 ---

@@ -40,6 +40,7 @@ function createMockReport(overrides?: Partial<Report>): Report {
       },
     ],
     summary: { error: 1, warn: 1, info: 0, total: 2 },
+    scorecard: { score: 70, grade: "C" as const, status: "FAIL" as const },
     configured: {},
     ...overrides,
   };

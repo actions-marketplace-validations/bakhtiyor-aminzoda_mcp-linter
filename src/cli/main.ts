@@ -1,5 +1,4 @@
-import { existsSync } from "node:fs";
-import { writeFileSync } from "node:fs";
+import { existsSync, appendFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { severityAtLeast, type Severity } from "../audit/severity.js";
 import type { Report } from "../audit/report.js";
@@ -8,12 +7,15 @@ import { createPalette } from "../report/color.js";
 import { formatJson } from "../report/json.js";
 import { formatPretty } from "../report/pretty.js";
 import { formatSarif } from "../report/sarif.js";
+import { formatMarkdown } from "../report/markdown.js";
+import { generateFixes } from "../rules/autofix.js";
 import { DoctorError } from "../transport/errors.js";
 import { DEFAULT_TIMEOUT_MS } from "../transport/stdio.js";
 import { VERSION } from "../version.js";
 import { parseArgs, type CliOptions } from "./args.js";
 import { auditServer } from "./audit-command.js";
 import { explainText, helpText, listRulesText } from "./help.js";
+import { runMockServer, type MockProfile } from "./mock-command.js";
 
 export interface CliEnvironment {
   readonly cwd: string;
@@ -34,6 +36,10 @@ export async function run(argv: readonly string[], environment: CliEnvironment):
   }
   const options = parsed.options;
 
+  if (options.mock !== undefined) {
+    runMockServer(options.mock as MockProfile);
+    return EXIT_CLEAN;
+  }
   if (options.help) {
     environment.write(`${helpText()}\n`);
     return EXIT_CLEAN;
@@ -75,7 +81,7 @@ export async function run(argv: readonly string[], environment: CliEnvironment):
     return EXIT_CLEAN;
   }
   if (options.command === undefined) {
-    environment.writeError(`no server command given. Example:\n  mcp-doctor -- npx -y @modelcontextprotocol/server-filesystem .\n`);
+    environment.writeError(`no server command given. Example:\n  mcp-doctor -- npx -y @modelcontextprotocol/server-filesystem .\n  mcp-doctor -- mcp-doctor mock clean\n`);
     return EXIT_ERROR;
   }
 
@@ -94,6 +100,28 @@ export async function run(argv: readonly string[], environment: CliEnvironment):
     const palette = createPalette({ color: options.color, isTty: environment.isTty });
     const rendered = render(report, options, palette);
     writeRendered(rendered, options, environment);
+
+    if (options.fix) {
+      const fixes = generateFixes(report.findings);
+      if (fixes.length === 0) {
+        environment.write(palette.green("\nNo autofixable issues found.\n"));
+      } else {
+        environment.write(`\n${palette.bold("🔧 Autofix Suggestions")} (${fixes.length} available):\n`);
+        for (const fix of fixes) {
+          environment.write(`  ${palette.cyan(fix.subject)} ${palette.bold(fix.title)}\n`);
+          environment.write(`    ${palette.dim(fix.description)}\n`);
+          environment.write(`    ${palette.dim("Suggested Patch:")} ${JSON.stringify(fix.patch)}\n`);
+        }
+      }
+    }
+
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      try {
+        appendFileSync(process.env.GITHUB_STEP_SUMMARY, formatMarkdown(report) + "\n\n", "utf8");
+      } catch {
+        // ignore
+      }
+    }
 
     return exitCodeFor(report, options.failOn ?? config.failOn ?? "error");
   } catch (error) {
@@ -116,6 +144,7 @@ function resolveConfig(options: CliOptions, cwd: string): DoctorConfig {
 function render(report: Report, options: CliOptions, palette: ReturnType<typeof createPalette>): string {
   if (options.format === "json") return formatJson(report);
   if (options.format === "sarif") return formatSarif(report);
+  if (options.format === "markdown") return formatMarkdown(report);
   return formatPretty(report, palette);
 }
 

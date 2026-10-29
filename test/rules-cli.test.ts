@@ -46,6 +46,7 @@ describe("rules and CLI", () => {
       counts: { tools: 1, resources: 0, resourceTemplates: 0, prompts: 0 },
       findings: [{ ruleId: "test", severity: "warn" as const, subjectKind: "server" as const, message: "warning" }],
       summary: { error: 0, warn: 1, info: 0, total: 1 },
+      scorecard: { score: 90, grade: "B" as const, status: "WARN" as const },
       configured: {},
     };
     expect(exitCodeFor(report, "error")).toBe(EXIT_CLEAN);

@@ -25,6 +25,13 @@ function formatHeader(report: Report, palette: Palette): string {
   const serverVersion = report.server.version === undefined ? "" : `@${report.server.version}`;
   const protocol = report.server.protocolVersion ?? "unknown";
 
+  const gradeColor =
+    report.scorecard.grade === "A+" || report.scorecard.grade === "A"
+      ? palette.green
+      : report.scorecard.grade === "B" || report.scorecard.grade === "C"
+        ? palette.yellow
+        : palette.red;
+
   const rows: Array<[string, string]> = [
     ["server", `${serverName}${serverVersion}`],
     ["protocol", protocol],
@@ -38,6 +45,7 @@ function formatHeader(report: Report, palette: Palette): string {
         plural(report.counts.prompts, "prompt"),
       ].join(", "),
     ],
+    ["scorecard", `${gradeColor(`[Grade ${report.scorecard.grade}]`)} ${report.scorecard.score}/100 (${report.scorecard.status})`],
   ];
 
   const width = Math.max(...rows.map(([label]) => label.length));
@@ -77,10 +85,19 @@ function formatFinding(finding: Finding, palette: Palette): string {
 
 function formatFooter(report: Report, palette: Palette): string {
   const { error, warn, info } = report.summary;
+  const gradeColor =
+    report.scorecard.grade === "A+" || report.scorecard.grade === "A"
+      ? palette.green
+      : report.scorecard.grade === "B" || report.scorecard.grade === "C"
+        ? palette.yellow
+        : palette.red;
+
   const parts = [
     palette.red(`${error} ${plural(error, "error")}`),
     palette.yellow(`${warn} ${plural(warn, "warning")}`),
     palette.blue(`${info} ${plural(info, "note")}`),
+    palette.dim("•"),
+    `${gradeColor(`[Grade: ${report.scorecard.grade}]`)} ${palette.bold(`${report.scorecard.score}/100`)} (${report.scorecard.status})`,
   ];
   return `${parts.join("  ")}`;
 }

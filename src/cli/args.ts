@@ -1,7 +1,7 @@
 import { isFailOn, type Severity } from "../audit/severity.js";
 import { DEFAULT_TIMEOUT_MS } from "../transport/stdio.js";
 
-export const OUTPUT_FORMATS = ["pretty", "json", "sarif"] as const;
+export const OUTPUT_FORMATS = ["pretty", "json", "sarif", "markdown"] as const;
 export type OutputFormat = (typeof OUTPUT_FORMATS)[number];
 
 export const DEFAULT_MAX_PAGES = 50;
@@ -23,6 +23,8 @@ export interface CliOptions {
   readonly listRules: boolean;
   readonly explain: string | undefined;
   readonly init: boolean;
+  readonly fix: boolean;
+  readonly mock: string | undefined;
 }
 
 export type ParseResult = { ok: true; options: CliOptions } | { ok: false; error: string };
@@ -44,6 +46,8 @@ const EMPTY: CliOptions = {
   listRules: false,
   explain: undefined,
   init: false,
+  fix: false,
+  mock: undefined,
 };
 
 /**
@@ -51,6 +55,17 @@ const EMPTY: CliOptions = {
  * feature: `npx mcp-doctor` pulls exactly one package into the user's tree.
  */
 export function parseArgs(argv: readonly string[]): ParseResult {
+  if (argv[0] === "mock") {
+    const profile = argv[1] || "clean";
+    return {
+      ok: true,
+      options: {
+        ...EMPTY,
+        mock: profile,
+      },
+    };
+  }
+
   const options = { ...EMPTY, env: {} as Record<string, string> };
   const commandArgs: string[] = [];
   let command: string | undefined;
@@ -95,6 +110,9 @@ export function parseArgs(argv: readonly string[]): ParseResult {
         break;
       case "--init":
         options.init = true;
+        break;
+      case "--fix":
+        options.fix = true;
         break;
       case "--no-color":
         options.color = false;

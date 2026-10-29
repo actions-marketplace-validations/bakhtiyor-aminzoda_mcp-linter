@@ -34,7 +34,7 @@ describe("parseArgs", () => {
     expect(parseArgs(["--format"])).toEqual({ ok: false, error: "--format requires a value" });
     expect(parseArgs(["--format", "xml"])).toEqual({
       ok: false,
-      error: "--format must be one of pretty, json, sarif",
+      error: "--format must be one of pretty, json, sarif, markdown",
     });
   });
 
