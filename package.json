@@ -1,6 +1,6 @@
 {
-  "name": "mcp-doctor",
-  "version": "0.1.0",
+  "name": "mcp-linter",
+  "version": "1.0.0",
   "description": "Audit a Model Context Protocol server: protocol conformance, tool safety annotations, schema quality and prompt-injection heuristics. Zero runtime dependencies.",
   "keywords": [
     "mcp",
@@ -10,7 +10,12 @@
     "cli",
     "sarif",
     "ai-agents",
-    "llm"
+    "llm",
+    "security",
+    "prompt-injection",
+    "claude",
+    "tool-safety",
+    "github-action"
   ],
   "author": "Bakhtior Aminzoda <bakhtiyor.aminzoda@gmail.com>",
   "repository": {
@@ -27,6 +32,7 @@
     "node": ">=20"
   },
   "bin": {
+    "mcp-linter": "dist/cli.js",
     "mcp-doctor": "dist/cli.js"
   },
   "main": "dist/index.js",

@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🩺 mcp-doctor
+# 🩺 mcp-linter
 
 **Zero-dependency security auditor and protocol linter for Model Context Protocol (MCP) servers.**
 
@@ -11,13 +11,13 @@
 [![MCP Spec](https://img.shields.io/badge/MCP%20Spec-2024--11--05-blueviolet.svg)](https://modelcontextprotocol.io/)
 [![SARIF Support](https://img.shields.io/badge/SARIF-v2.1.0-orange.svg)](https://sarifweb.azurewebsites.net/)
 
-[Quick Start](#-quick-start) • [Why mcp-doctor](#-why-mcp-doctor) • [Rules Catalog](#-rules-catalog) • [Autofix](#-autofix-engine) • [Mock Server](#-built-in-mock-server) • [GitHub Action](#-github-action--sarif-integration) • [Audit Report](AUDIT_REPORT.md) • [Roadmap](ROADMAP.md)
+[Quick Start](#-quick-start) • [Why mcp-linter](#-why-mcp-doctor) • [Rules Catalog](#-rules-catalog) • [Autofix](#-autofix-engine) • [Mock Server](#-built-in-mock-server) • [GitHub Action](#-github-action--sarif-integration) • [Audit Report](AUDIT_REPORT.md) • [Roadmap](ROADMAP.md)
 
 </div>
 
 ---
 
-## 💡 Why mcp-doctor?
+## 💡 Why mcp-linter?
 
 The **Model Context Protocol (MCP)** connects frontier LLMs (such as Claude and ChatGPT) to local tools, data sources, and services. However, authoring robust MCP servers has unique challenges:
 
@@ -38,22 +38,22 @@ Run instantly without installing via `npx`:
 
 ```bash
 # Audit an MCP server (Node.js, Python, Go, Rust, or binary)
-npx mcp-doctor -- npx -y @modelcontextprotocol/server-filesystem .
+npx mcp-linter -- npx -y @modelcontextprotocol/server-filesystem .
 
 # Audit built-in reference mock server (zero setup required)
-npx mcp-doctor -- npx mcp-doctor mock clean
+npx mcp-linter -- npx mcp-linter mock clean
 
 # Run with automated fix suggestions
-npx mcp-doctor --fix -- node dist/index.js
+npx mcp-linter --fix -- node dist/index.js
 
 # Audit and output GitHub Flavored Markdown report
-npx mcp-doctor --format markdown -- node dist/index.js
+npx mcp-linter --format markdown -- node dist/index.js
 ```
 
 ### CLI Output Example
 
 ```text
-mcp-doctor 0.1.0
+mcp-linter 1.0.0
   server     sqlite-explorer@1.0.0
   protocol   2024-11-05
   command    node dist/server.js
@@ -105,7 +105,7 @@ Options:
 Run with `--fix` to receive machine-readable and actionable patches for common schema defects:
 
 ```bash
-npx mcp-doctor --fix -- node ./server.js
+npx mcp-linter --fix -- node ./server.js
 ```
 
 ```text
