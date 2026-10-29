@@ -180,9 +180,16 @@ Feedback and feature requests are very welcome!
 
 ---
 
-## 5. 🇷🇺 Telegram / Habr (Русскоязычные сообщества)
+## 5. 🇷🇺 Хабр и Telegram (Русскоязычные сообщества)
 
-**Для Telegram каналов про AI / разработку:**
+### Для Хабра (полноценная статья)
+Полная версия готовой статьи с кодом и графиками находится в файле:
+👉 [`HABR_POST.md`](file:///c:/projects/claude-gpt/HABR_POST.md)
+*Хабы для публикации:* «Я пиарюсь», «Разработка», «Искусственный интеллект», «Информационная безопасность».
+
+---
+
+### Для Telegram-каналов про AI и разработку (краткий пост)
 
 ```text
 🩺 mcp-linter — первый открытый линтер и сканер безопасности для серверов Model Context Protocol (MCP)
@@ -198,8 +205,9 @@ Feedback and feature requests are very welcome!
 — Генератор автоисправлений (--fix)
 — Экспорт в SARIF v2.1.0 для GitHub Security и готовый GitHub Action
 
-Попробовать в одну строку:
+Пакет опубликован на npm и запускается без установки:
 npx mcp-linter -- npx -y @modelcontextprotocol/server-memory
 
-Репозиторий: https://github.com/bakhtiyor-aminzoda/mcp-doctor
+npm: https://www.npmjs.com/package/mcp-linter
+GitHub: https://github.com/bakhtiyor-aminzoda/mcp-doctor
 ```
