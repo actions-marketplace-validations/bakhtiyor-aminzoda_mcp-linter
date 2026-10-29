@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const docsRulesDir = path.join(rootDir, 'docs', 'rules');
+const readmePath = path.join(rootDir, 'README.md');
 
 // Dynamically import compiled library
 const distIndex = path.join(rootDir, 'dist', 'index.js');
@@ -17,6 +18,8 @@ const { ALL_RULES } = await import(`file://${distIndex.replace(/\\/g, '/')}`);
 
 let missing = 0;
 let errors = 0;
+
+const readmeContent = fs.existsSync(readmePath) ? fs.readFileSync(readmePath, 'utf8') : '';
 
 for (const rule of ALL_RULES) {
   const docPath = path.join(docsRulesDir, `${rule.id}.md`);
@@ -34,6 +37,29 @@ for (const rule of ALL_RULES) {
     console.error(`TOO SHORT: docs/rules/${rule.id}.md has insufficient explanation`);
     errors++;
   }
+
+  // Validate severity in docs/rules/${rule.id}.md
+  const docSevMatch = content.match(/\*\*Default Severity\*\*:\s*`?([A-Za-z]+)`?/);
+  if (!docSevMatch) {
+    console.error(`MISSING SEVERITY: docs/rules/${rule.id}.md does not declare Default Severity`);
+    errors++;
+  } else if (docSevMatch[1].toLowerCase() !== rule.defaultSeverity.toLowerCase()) {
+    console.error(`SEVERITY MISMATCH in docs/rules/${rule.id}.md: doc has ${docSevMatch[1]}, rule defines ${rule.defaultSeverity}`);
+    errors++;
+  }
+
+  // Validate severity in README.md table
+  if (readmeContent) {
+    const escapedId = rule.id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const tableRowRegex = new RegExp(`\\|\\s*\`?${escapedId}\`?\\s*\\|\\s*\`?([A-Za-z]+)\`?\\s*\\|`);
+    const readmeMatch = readmeContent.match(tableRowRegex);
+    if (!readmeMatch) {
+      console.warn(`WARNING: README.md does not list rule "${rule.id}" in tables`);
+    } else if (readmeMatch[1].toLowerCase() !== rule.defaultSeverity.toLowerCase()) {
+      console.error(`SEVERITY MISMATCH in README.md for "${rule.id}": README has ${readmeMatch[1]}, rule defines ${rule.defaultSeverity}`);
+      errors++;
+    }
+  }
 }
 
 if (missing > 0 || errors > 0) {
@@ -41,4 +67,4 @@ if (missing > 0 || errors > 0) {
   process.exit(1);
 }
 
-console.log(`✓ All ${ALL_RULES.length} rules are fully documented in docs/rules/`);
+console.log(`✓ All ${ALL_RULES.length} rules are fully documented with matching severities in docs/rules/ and README.md`);

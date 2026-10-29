@@ -48,6 +48,10 @@ export class RequestTimeoutError extends DoctorError {
   }
 }
 
+/**
+ * @deprecated Empty capabilities are evaluated as an audit finding by rule `protocol/no-capabilities`
+ * and reported in `AuditReport` rather than thrown as a fatal transport exception.
+ */
 export class NoCapabilitiesError extends DoctorError {
   constructor() {
     super(

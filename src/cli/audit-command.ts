@@ -1,8 +1,7 @@
 import { buildReport, type Report } from "../audit/report.js";
-import { collectSnapshot, hasAnyCapability } from "../mcp/session.js";
+import { collectSnapshot } from "../mcp/session.js";
 import { PREFERRED_PROTOCOL_VERSION } from "../mcp/types.js";
 import { runRules } from "../rules/engine.js";
-import { NoCapabilitiesError } from "../transport/errors.js";
 import { StdioClient } from "../transport/stdio.js";
 import { VERSION } from "../version.js";
 
@@ -35,8 +34,6 @@ export async function auditServer(request: AuditRequest): Promise<Report> {
       requestedProtocolVersion: PREFERRED_PROTOCOL_VERSION,
       maxPages: request.maxPages,
     });
-
-    if (!hasAnyCapability(snapshot)) throw new NoCapabilitiesError();
 
     const findings = runRules(snapshot, request.ruleOverrides);
     return buildReport(snapshot, findings, request.ruleOverrides, VERSION);

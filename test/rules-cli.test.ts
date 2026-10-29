@@ -75,4 +75,54 @@ describe("rules and CLI", () => {
     expect(EXIT_FINDINGS).toBe(1);
     expect(EXIT_ERROR).toBe(2);
   });
+
+  describe("protocol/no-capabilities rule", () => {
+    function emptyCapabilitiesSnapshot(): ServerSnapshot {
+      return {
+        command: "node server.js",
+        protocolVersion: "2024-11-05",
+        requestedProtocolVersion: "2024-11-05",
+        capabilities: {},
+        serverInfo: { name: "empty-server", version: "1.0.0" },
+        instructions: "instructions",
+        tools: [],
+        resources: [],
+        resourceTemplates: [],
+        prompts: [],
+        listErrors: [],
+        strayStdout: [],
+      };
+    }
+
+    it("detects empty capabilities with default error severity", () => {
+      const snapshot = emptyCapabilitiesSnapshot();
+      const findings = runRules(snapshot);
+      const noCapFinding = findings.find((f) => f.ruleId === "protocol/no-capabilities");
+      expect(noCapFinding).toBeDefined();
+      expect(noCapFinding?.severity).toBe("error");
+      expect(noCapFinding?.message).toBe("server declared none of tools, resources or prompts");
+    });
+
+    it("supports suppressing protocol/no-capabilities via override", () => {
+      const snapshot = emptyCapabilitiesSnapshot();
+      const findings = runRules(snapshot, { "protocol/no-capabilities": "off" });
+      expect(findings.some((f) => f.ruleId === "protocol/no-capabilities")).toBe(false);
+    });
+
+    it("supports downgrading protocol/no-capabilities via override", () => {
+      const snapshot = emptyCapabilitiesSnapshot();
+      const findings = runRules(snapshot, { "protocol/no-capabilities": "warn" });
+      const noCapFinding = findings.find((f) => f.ruleId === "protocol/no-capabilities");
+      expect(noCapFinding?.severity).toBe("warn");
+    });
+
+    it("does not report protocol/no-capabilities when tools capability is declared", () => {
+      const snapshot: ServerSnapshot = {
+        ...emptyCapabilitiesSnapshot(),
+        capabilities: { tools: {} },
+      };
+      const findings = runRules(snapshot);
+      expect(findings.some((f) => f.ruleId === "protocol/no-capabilities")).toBe(false);
+    });
+  });
 });

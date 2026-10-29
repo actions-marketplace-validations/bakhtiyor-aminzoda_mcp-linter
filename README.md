@@ -114,15 +114,15 @@ Options:
 | Rule ID | Severity | Description |
 | :--- | :---: | :--- |
 | `tools/name-missing` | `ERROR` | Tool has no `name` property |
-| `tools/name-format` | `ERROR` | Tool name uses invalid characters or exceeds 64 characters |
+| `tools/name-format` | `WARN` | Tool name uses invalid characters or exceeds 64 characters |
 | `tools/duplicate-name` | `ERROR` | Multiple tools share the same name |
 | `tools/description-missing` | `ERROR` | Tool has no description (LLMs cannot determine when to call) |
 | `tools/description-too-short` | `WARN` | Description shorter than 20 characters |
-| `tools/description-too-long` | `INFO` | Description exceeds 1024 characters (wastes context window) |
+| `tools/description-too-long` | `WARN` | Description exceeds 1024 characters (wastes context window) |
 | `tools/input-schema-missing` | `ERROR` | Tool does not provide an `inputSchema` |
 | `tools/input-schema-not-object` | `ERROR` | `inputSchema.type` is not `"object"` |
 | `tools/parameter-description-missing` | `WARN` | A tool parameter has no description |
-| `tools/schema-fragile-keywords` | `WARN` | Uses complex schema keywords that confuse LLM tool-calling |
+| `tools/schema-fragile-keywords` | `INFO` | Uses complex schema keywords that confuse LLM tool-calling |
 
 ### 3. Safety & Security (`tools/*`)
 | Rule ID | Severity | Description |
@@ -138,10 +138,10 @@ Options:
 | Rule ID | Severity | Description |
 | :--- | :---: | :--- |
 | `resources/uri-missing` | `ERROR` | Resource has no `uri` |
-| `resources/uri-not-absolute` | `ERROR` | Resource URI does not include a valid scheme |
+| `resources/uri-not-absolute` | `WARN` | Resource URI does not include a valid scheme |
 | `resources/duplicate-uri` | `ERROR` | Multiple resources share the same URI |
 | `resources/name-missing` | `WARN` | Resource has no human-readable name |
-| `resources/mime-type-missing` | `WARN` | Resource has no `mimeType` declared |
+| `resources/mime-type-missing` | `INFO` | Resource has no `mimeType` declared |
 | `resources/template-uri-invalid` | `ERROR` | Resource template has invalid RFC 6570 URI syntax |
 
 ### 5. Prompts (`prompts/*`)
@@ -151,7 +151,7 @@ Options:
 | `prompts/duplicate-name` | `ERROR` | Multiple prompts share the same name |
 | `prompts/description-missing` | `WARN` | Prompt has no description |
 | `prompts/argument-name-missing` | `ERROR` | Prompt argument has no `name` |
-| `prompts/argument-description-missing` | `INFO` | Prompt argument has no description |
+| `prompts/argument-description-missing` | `WARN` | Prompt argument has no description |
 
 ---
 

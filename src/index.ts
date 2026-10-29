@@ -13,6 +13,6 @@ export type { Rule } from "./rules/rule.js";
 export { buildReport, type Report } from "./audit/report.js";
 export type { Finding } from "./audit/finding.js";
 export { formatJson } from "./report/json.js";
-export { formatSarif } from "./report/sarif.js";
+export { formatSarif, type SarifOptions, resolveArtifactUri } from "./report/sarif.js";
 export { loadConfig, type DoctorConfig } from "./config.js";
 export { VERSION } from "./version.js";
