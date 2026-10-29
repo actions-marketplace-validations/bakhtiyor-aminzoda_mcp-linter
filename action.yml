@@ -1,0 +1,72 @@
+name: 'mcp-doctor'
+description: 'Audit a Model Context Protocol (MCP) server for protocol conformance, tool safety annotations, schema quality, and prompt injection heuristics.'
+author: 'Bakhtior Aminzoda'
+branding:
+  icon: 'shield-check'
+  color: 'blue'
+
+inputs:
+  command:
+    description: 'Command to launch the MCP server under test'
+    required: true
+  fail-on:
+    description: 'Fail CI if findings reach this severity (error, warn, info, none)'
+    required: false
+    default: 'error'
+  format:
+    description: 'Output format (pretty, json, sarif)'
+    required: false
+    default: 'sarif'
+  output-file:
+    description: 'File path to save the audit report'
+    required: false
+    default: 'mcp-doctor-report.sarif'
+  timeout:
+    description: 'Timeout in milliseconds per request'
+    required: false
+    default: '15000'
+  config:
+    description: 'Path to custom .mcp-doctor.json configuration'
+    required: false
+    default: ''
+
+outputs:
+  report-file:
+    description: 'Path where the report was written'
+    value: ${{ inputs.output-file }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Ensure build
+      shell: bash
+      run: |
+        if [ ! -f "${{ github.action_path }}/dist/cli.js" ]; then
+          echo "Building mcp-doctor..."
+          cd "${{ github.action_path }}"
+          npm install
+          npm run build
+        fi
+
+    - name: Run mcp-doctor audit
+      shell: bash
+      run: |
+        ARGS=()
+        ARGS+=(--fail-on "${{ inputs.fail-on }}")
+        ARGS+=(--format "${{ inputs.format }}")
+        ARGS+=(--timeout "${{ inputs.timeout }}")
+
+        if [ -n "${{ inputs.output-file }}" ]; then
+          ARGS+=(--output "${{ inputs.output-file }}")
+        fi
+
+        if [ -n "${{ inputs.config }}" ]; then
+          ARGS+=(--config "${{ inputs.config }}")
+        fi
+
+        node "${{ github.action_path }}/dist/cli.js" "${ARGS[@]}" -- ${{ inputs.command }}
