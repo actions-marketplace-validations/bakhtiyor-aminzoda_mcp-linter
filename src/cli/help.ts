@@ -23,6 +23,7 @@ export function helpText(): string {
     "      --fail-on <level>  exit 1 when findings reach: error, warn, info, none",
     "                         (default: error)",
     "      --config <file>    path to .mcp-doctor.json",
+    "      --init             generate a starter .mcp-doctor.json in current directory",
     "      --max-pages <n>    cap on paginated list calls (default: 50)",
     "      --no-color         disable ANSI colour",
     "      --list-rules       print every rule id and exit",

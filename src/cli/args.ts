@@ -22,6 +22,7 @@ export interface CliOptions {
   readonly version: boolean;
   readonly listRules: boolean;
   readonly explain: string | undefined;
+  readonly init: boolean;
 }
 
 export type ParseResult = { ok: true; options: CliOptions } | { ok: false; error: string };
@@ -42,6 +43,7 @@ const EMPTY: CliOptions = {
   version: false,
   listRules: false,
   explain: undefined,
+  init: false,
 };
 
 /**
@@ -90,6 +92,9 @@ export function parseArgs(argv: readonly string[]): ParseResult {
         break;
       case "--list-rules":
         options.listRules = true;
+        break;
+      case "--init":
+        options.init = true;
         break;
       case "--no-color":
         options.color = false;

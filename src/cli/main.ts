@@ -55,6 +55,25 @@ export async function run(argv: readonly string[], environment: CliEnvironment):
     environment.write(`${explanation}\n`);
     return EXIT_CLEAN;
   }
+  if (options.init) {
+    const targetFile = join(environment.cwd, CONFIG_FILENAME);
+    if (existsSync(targetFile)) {
+      environment.writeError(`Configuration file already exists: ${targetFile}\n`);
+      return EXIT_ERROR;
+    }
+    const starterConfig = {
+      $schema: "https://raw.githubusercontent.com/bakhtiyor-aminzoda/mcp-doctor/main/docs/schema.json",
+      timeout: 15000,
+      failOn: "error",
+      rules: {
+        "tools/title-missing": "info",
+        "protocol/instructions-missing": "info",
+      },
+    };
+    writeFileSync(targetFile, JSON.stringify(starterConfig, null, 2) + "\n", "utf8");
+    environment.write(`✓ Created ${CONFIG_FILENAME} configuration file.\n`);
+    return EXIT_CLEAN;
+  }
   if (options.command === undefined) {
     environment.writeError(`no server command given. Example:\n  mcp-doctor -- npx -y @modelcontextprotocol/server-filesystem .\n`);
     return EXIT_ERROR;

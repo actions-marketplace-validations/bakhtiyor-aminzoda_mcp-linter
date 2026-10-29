@@ -37,4 +37,10 @@ describe("parseArgs", () => {
       error: "--format must be one of pretty, json, sarif",
     });
   });
+
+  it("parses --init flag", () => {
+    const res = parseArgs(["--init"]);
+    expect(res.ok).toBe(true);
+    if (res.ok) expect(res.options.init).toBe(true);
+  });
 });
