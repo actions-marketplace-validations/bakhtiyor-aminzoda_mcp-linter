@@ -93,9 +93,9 @@ function formatFooter(report: Report, palette: Palette): string {
         : palette.red;
 
   const parts = [
-    palette.red(`${error} ${plural(error, "error")}`),
-    palette.yellow(`${warn} ${plural(warn, "warning")}`),
-    palette.blue(`${info} ${plural(info, "note")}`),
+    palette.red(plural(error, "error")),
+    palette.yellow(plural(warn, "warning")),
+    palette.blue(plural(info, "note")),
     palette.dim("•"),
     `${gradeColor(`[Grade: ${report.scorecard.grade}]`)} ${palette.bold(`${report.scorecard.score}/100`)} (${report.scorecard.status})`,
   ];

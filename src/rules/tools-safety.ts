@@ -62,7 +62,8 @@ export const toolSafetyRules: readonly Rule[] = [
     check: ({ snapshot }) =>
       snapshot.tools
         .filter((tool) => tool.name !== undefined && classifyName(tool.name) === "read-only")
-        .filter((tool) => tool.annotations?.readOnlyHint !== true)
+        // An explicit readOnlyHint: false is a deliberate choice (e.g. the tool can also write files).
+        .filter((tool) => tool.annotations?.readOnlyHint === undefined)
         .map((tool) =>
           issue({
             message: `tool "${tool.name}" looks read-only but does not set readOnlyHint`,
