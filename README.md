@@ -5,6 +5,7 @@
 **Zero-dependency security auditor and protocol linter for Model Context Protocol (MCP) servers.**
 
 [![npm version](https://img.shields.io/npm/v/mcp-linter.svg)](https://www.npmjs.com/package/mcp-linter)
+[![Marketplace](https://img.shields.io/badge/GitHub_Marketplace-mcp--linter-blue?logo=github)](https://github.com/marketplace/actions/mcp-linter)
 [![CI](https://github.com/bakhtiyor-aminzoda/mcp-linter/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhtiyor-aminzoda/mcp-linter/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](https://nodejs.org/)
@@ -12,7 +13,7 @@
 [![MCP Spec](https://img.shields.io/badge/MCP%20Spec-2024--11--05-blueviolet.svg)](https://modelcontextprotocol.io/)
 [![SARIF Support](https://img.shields.io/badge/SARIF-v2.1.0-orange.svg)](https://sarifweb.azurewebsites.net/)
 
-[Quick Start](#-quick-start) • [Why mcp-linter](#-why-mcp-linter) • [Rules Catalog](#-rules-catalog) • [Autofix](#-autofix-engine) • [Mock Server](#-built-in-mock-server) • [GitHub Action](#-github-action--sarif-integration) • [Audit Report](AUDIT_REPORT.md) • [Roadmap](ROADMAP.md)
+[Quick Start](#-quick-start) • [GitHub Action](https://github.com/marketplace/actions/mcp-linter) • [npm Package](https://www.npmjs.com/package/mcp-linter) • [Live Proofs](#-empirical-verification--live-proofs) • [Rules Catalog](#-rules-catalog) • [Autofix](#-autofix-engine) • [Mock Server](#-built-in-mock-server) • [Roadmap](ROADMAP.md)
 
 </div>
 
