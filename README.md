@@ -12,7 +12,7 @@
 [![MCP Spec](https://img.shields.io/badge/MCP%20Spec-2024--11--05-blueviolet.svg)](https://modelcontextprotocol.io/)
 [![SARIF Support](https://img.shields.io/badge/SARIF-v2.1.0-orange.svg)](https://sarifweb.azurewebsites.net/)
 
-[Quick Start](#-quick-start) • [Why mcp-linter](#-why-mcp-doctor) • [Rules Catalog](#-rules-catalog) • [Autofix](#-autofix-engine) • [Mock Server](#-built-in-mock-server) • [GitHub Action](#-github-action--sarif-integration) • [Audit Report](AUDIT_REPORT.md) • [Roadmap](ROADMAP.md)
+[Quick Start](#-quick-start) • [Why mcp-linter](#-why-mcp-linter) • [Rules Catalog](#-rules-catalog) • [Autofix](#-autofix-engine) • [Mock Server](#-built-in-mock-server) • [GitHub Action](#-github-action--sarif-integration) • [Audit Report](AUDIT_REPORT.md) • [Roadmap](ROADMAP.md)
 
 </div>
 
@@ -35,20 +35,28 @@ The **Model Context Protocol (MCP)** connects frontier LLMs (such as Claude and 
 
 ## 🚀 Quick Start
 
-Run instantly without installing via `npx`:
-
+### 1. Instant execution with `npx` (no install required)
 ```bash
 # Audit an MCP server (Node.js, Python, Go, Rust, or binary)
 npx mcp-linter -- npx -y @modelcontextprotocol/server-filesystem .
 
-# Audit built-in reference mock server (zero setup required)
+# Audit built-in reference mock server
 npx mcp-linter -- npx mcp-linter mock clean
 
 # Run with automated fix suggestions
 npx mcp-linter --fix -- node dist/index.js
 
-# Audit and output GitHub Flavored Markdown report
+# Output GitHub Flavored Markdown report (ideal for CI summaries)
 npx mcp-linter --format markdown -- node dist/index.js
+```
+
+### 2. Global installation via `npm`
+```bash
+npm install -g mcp-linter
+
+# Both binary aliases are available globally:
+mcp-linter -- node dist/index.js
+mcp-doctor -- node dist/index.js
 ```
 
 ### CLI Output Example
@@ -124,14 +132,14 @@ npx mcp-linter --fix -- node ./server.js
 
 ## 🧪 Built-in Mock Server
 
-`mcp-doctor` includes an internal reference mock server, enabling instant testing without external dependencies:
+`mcp-linter` includes an internal reference mock server, enabling instant testing without external dependencies:
 
 ```bash
 # Test clean compliant server (Grade A+)
-mcp-doctor -- mcp-doctor mock clean
+npx mcp-linter -- npx mcp-linter mock clean
 
 # Test vulnerable server demonstrating prompt injection & destructive bugs (Grade F)
-mcp-doctor -- mcp-doctor mock vulnerable
+npx mcp-linter -- npx mcp-linter mock vulnerable
 ```
 
 ---
@@ -261,10 +269,10 @@ Customize rule severities or suppress rules by adding a `.mcp-doctor.json` in yo
 
 ## 📦 Programmatic API
 
-You can run `mcp-doctor` inside your own test suite without spawning external shell processes:
+You can run `mcp-linter` inside your own test suite without spawning external shell processes:
 
 ```typescript
-import { auditServer, buildReport, runRules, formatPretty } from "mcp-doctor";
+import { auditServer, buildReport, runRules, formatPretty } from "mcp-linter";
 
 const report = await auditServer({
   command: "node",
