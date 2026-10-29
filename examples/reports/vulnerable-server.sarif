@@ -1,0 +1,1155 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "mcp-doctor",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "informationUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter",
+          "rules": [
+            {
+              "id": "protocol/version-missing",
+              "name": "protocol/version-missing",
+              "shortDescription": {
+                "text": "initialize result has no protocolVersion"
+              },
+              "fullDescription": {
+                "text": "Clients negotiate behaviour from the version the server reports. Without it the client cannot know which features are safe to use and may fall back to an incompatible code path."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/version-missing.md",
+              "help": {
+                "text": "initialize result has no protocolVersion. Clients negotiate behaviour from the version the server reports. Without it the client cannot know which features are safe to use and may fall back to an incompatible code path.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/version-missing.md",
+                "markdown": "### initialize result has no protocolVersion\n\nClients negotiate behaviour from the version the server reports. Without it the client cannot know which features are safe to use and may fall back to an incompatible code path.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/version-missing.md)"
+              },
+              "properties": {
+                "category": "protocol",
+                "tags": [
+                  "protocol"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "lifecycle/initialization"
+              }
+            },
+            {
+              "id": "protocol/version-unsupported",
+              "name": "protocol/version-unsupported",
+              "shortDescription": {
+                "text": "server reports a protocol version mcp-doctor does not know"
+              },
+              "fullDescription": {
+                "text": "An unknown version string usually means the server hard-coded a version instead of echoing the client's, or it is newer than the client and the negotiation silently failed."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/version-unsupported.md",
+              "help": {
+                "text": "server reports a protocol version mcp-doctor does not know. An unknown version string usually means the server hard-coded a version instead of echoing the client's, or it is newer than the client and the negotiation silently failed.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/version-unsupported.md",
+                "markdown": "### server reports a protocol version mcp-doctor does not know\n\nAn unknown version string usually means the server hard-coded a version instead of echoing the client's, or it is newer than the client and the negotiation silently failed.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/version-unsupported.md)"
+              },
+              "properties": {
+                "category": "protocol",
+                "tags": [
+                  "protocol"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "lifecycle/initialization"
+              }
+            },
+            {
+              "id": "protocol/stdout-pollution",
+              "name": "protocol/stdout-pollution",
+              "shortDescription": {
+                "text": "non JSON-RPC output written to stdout"
+              },
+              "fullDescription": {
+                "text": "stdout is the message channel. A log line, banner or progress dot on stdout corrupts the stream and, depending on the client, either breaks parsing or silently drops the message that followed."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/stdout-pollution.md",
+              "help": {
+                "text": "non JSON-RPC output written to stdout. stdout is the message channel. A log line, banner or progress dot on stdout corrupts the stream and, depending on the client, either breaks parsing or silently drops the message that followed.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/stdout-pollution.md",
+                "markdown": "### non JSON-RPC output written to stdout\n\nstdout is the message channel. A log line, banner or progress dot on stdout corrupts the stream and, depending on the client, either breaks parsing or silently drops the message that followed.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/stdout-pollution.md)"
+              },
+              "properties": {
+                "category": "protocol",
+                "tags": [
+                  "protocol"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "transports/stdio"
+              }
+            },
+            {
+              "id": "protocol/list-failed",
+              "name": "protocol/list-failed",
+              "shortDescription": {
+                "text": "a list method declared by capabilities failed"
+              },
+              "fullDescription": {
+                "text": "Declaring a capability and then failing the matching list call leaves the client with a half-loaded server, usually with no explanation beyond a generic error."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/list-failed.md",
+              "help": {
+                "text": "a list method declared by capabilities failed. Declaring a capability and then failing the matching list call leaves the client with a half-loaded server, usually with no explanation beyond a generic error.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/list-failed.md",
+                "markdown": "### a list method declared by capabilities failed\n\nDeclaring a capability and then failing the matching list call leaves the client with a half-loaded server, usually with no explanation beyond a generic error.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/list-failed.md)"
+              },
+              "properties": {
+                "category": "protocol",
+                "tags": [
+                  "protocol"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error"
+              }
+            },
+            {
+              "id": "protocol/no-capabilities",
+              "name": "protocol/no-capabilities",
+              "shortDescription": {
+                "text": "server declares none of tools, resources or prompts"
+              },
+              "fullDescription": {
+                "text": "A server with no capabilities exposes nothing to the model. This is almost always a wiring bug — a handler registered on the wrong object, or an early return before registration."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/no-capabilities.md",
+              "help": {
+                "text": "server declares none of tools, resources or prompts. A server with no capabilities exposes nothing to the model. This is almost always a wiring bug — a handler registered on the wrong object, or an early return before registration.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/no-capabilities.md",
+                "markdown": "### server declares none of tools, resources or prompts\n\nA server with no capabilities exposes nothing to the model. This is almost always a wiring bug — a handler registered on the wrong object, or an early return before registration.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/no-capabilities.md)"
+              },
+              "properties": {
+                "category": "protocol",
+                "tags": [
+                  "protocol"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "lifecycle/initialization"
+              }
+            },
+            {
+              "id": "protocol/server-info-incomplete",
+              "name": "protocol/server-info-incomplete",
+              "shortDescription": {
+                "text": "serverInfo is missing name or version"
+              },
+              "fullDescription": {
+                "text": "Clients show this to users and write it to logs. Without it, an incident report cannot tell which server produced a bad tool call."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/server-info-incomplete.md",
+              "help": {
+                "text": "serverInfo is missing name or version. Clients show this to users and write it to logs. Without it, an incident report cannot tell which server produced a bad tool call.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/server-info-incomplete.md",
+                "markdown": "### serverInfo is missing name or version\n\nClients show this to users and write it to logs. Without it, an incident report cannot tell which server produced a bad tool call.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/server-info-incomplete.md)"
+              },
+              "properties": {
+                "category": "protocol",
+                "tags": [
+                  "protocol"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "lifecycle/initialization"
+              }
+            },
+            {
+              "id": "protocol/instructions-missing",
+              "name": "protocol/instructions-missing",
+              "shortDescription": {
+                "text": "no initialize instructions provided"
+              },
+              "fullDescription": {
+                "text": "instructions is the one place a server can explain itself to the model without spending a tool description on it. Omitting it is allowed but the model then guesses how the tools fit together."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/instructions-missing.md",
+              "help": {
+                "text": "no initialize instructions provided. instructions is the one place a server can explain itself to the model without spending a tool description on it. Omitting it is allowed but the model then guesses how the tools fit together.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/instructions-missing.md",
+                "markdown": "### no initialize instructions provided\n\ninstructions is the one place a server can explain itself to the model without spending a tool description on it. Omitting it is allowed but the model then guesses how the tools fit together.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/protocol/instructions-missing.md)"
+              },
+              "properties": {
+                "category": "protocol",
+                "tags": [
+                  "protocol"
+                ],
+                "precision": "very-high",
+                "problem.severity": "recommendation",
+                "spec": "lifecycle/initialization"
+              }
+            },
+            {
+              "id": "tools/name-missing",
+              "name": "tools/name-missing",
+              "shortDescription": {
+                "text": "tool has no name"
+              },
+              "fullDescription": {
+                "text": "The name is the identifier the model calls. A tool without one is unreachable and is usually a serialization bug in the server's list handler."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/name-missing.md",
+              "help": {
+                "text": "tool has no name. The name is the identifier the model calls. A tool without one is unreachable and is usually a serialization bug in the server's list handler.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/name-missing.md",
+                "markdown": "### tool has no name\n\nThe name is the identifier the model calls. A tool without one is unreachable and is usually a serialization bug in the server's list handler.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/name-missing.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/name-format",
+              "name": "tools/name-format",
+              "shortDescription": {
+                "text": "tool name uses characters outside [a-zA-Z0-9_-] or exceeds 64 chars"
+              },
+              "fullDescription": {
+                "text": "Several clients and model APIs reject or transliterate names with dots, spaces, slashes or non-ASCII characters, which turns a working server into one that fails only on some hosts."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/name-format.md",
+              "help": {
+                "text": "tool name uses characters outside [a-zA-Z0-9_-] or exceeds 64 chars. Several clients and model APIs reject or transliterate names with dots, spaces, slashes or non-ASCII characters, which turns a working server into one that fails only on some hosts.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/name-format.md",
+                "markdown": "### tool name uses characters outside [a-zA-Z0-9_-] or exceeds 64 chars\n\nSeveral clients and model APIs reject or transliterate names with dots, spaces, slashes or non-ASCII characters, which turns a working server into one that fails only on some hosts.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/name-format.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/duplicate-name",
+              "name": "tools/duplicate-name",
+              "shortDescription": {
+                "text": "two tools share the same name"
+              },
+              "fullDescription": {
+                "text": "With duplicate names the model's call is ambiguous and the client resolves it arbitrarily, so one of the two tools can never be invoked."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/duplicate-name.md",
+              "help": {
+                "text": "two tools share the same name. With duplicate names the model's call is ambiguous and the client resolves it arbitrarily, so one of the two tools can never be invoked.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/duplicate-name.md",
+                "markdown": "### two tools share the same name\n\nWith duplicate names the model's call is ambiguous and the client resolves it arbitrarily, so one of the two tools can never be invoked.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/duplicate-name.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/description-missing",
+              "name": "tools/description-missing",
+              "shortDescription": {
+                "text": "tool has no description"
+              },
+              "fullDescription": {
+                "text": "The description is the only thing the model sees when choosing between tools. Without it the model either never calls the tool or calls it with guessed arguments."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-missing.md",
+              "help": {
+                "text": "tool has no description. The description is the only thing the model sees when choosing between tools. Without it the model either never calls the tool or calls it with guessed arguments.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-missing.md",
+                "markdown": "### tool has no description\n\nThe description is the only thing the model sees when choosing between tools. Without it the model either never calls the tool or calls it with guessed arguments.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-missing.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/description-too-short",
+              "name": "tools/description-too-short",
+              "shortDescription": {
+                "text": "description shorter than 20 characters"
+              },
+              "fullDescription": {
+                "text": "A two-word description such as \"gets data\" gives the model no basis to prefer this tool over a similar one, which shows up as erratic tool selection rather than an obvious bug."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-too-short.md",
+              "help": {
+                "text": "description shorter than 20 characters. A two-word description such as \"gets data\" gives the model no basis to prefer this tool over a similar one, which shows up as erratic tool selection rather than an obvious bug.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-too-short.md",
+                "markdown": "### description shorter than 20 characters\n\nA two-word description such as \"gets data\" gives the model no basis to prefer this tool over a similar one, which shows up as erratic tool selection rather than an obvious bug.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-too-short.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/description-too-long",
+              "name": "tools/description-too-long",
+              "shortDescription": {
+                "text": "description longer than 1024 characters"
+              },
+              "fullDescription": {
+                "text": "Every description is resent on every turn. One verbose tool can dominate the context window and crowd out the conversation it was meant to help with."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-too-long.md",
+              "help": {
+                "text": "description longer than 1024 characters. Every description is resent on every turn. One verbose tool can dominate the context window and crowd out the conversation it was meant to help with.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-too-long.md",
+                "markdown": "### description longer than 1024 characters\n\nEvery description is resent on every turn. One verbose tool can dominate the context window and crowd out the conversation it was meant to help with.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-too-long.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/input-schema-missing",
+              "name": "tools/input-schema-missing",
+              "shortDescription": {
+                "text": "tool has no inputSchema"
+              },
+              "fullDescription": {
+                "text": "inputSchema is required by the specification. Without it a strict client rejects the tool outright and a lenient one lets the model invent arguments."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/input-schema-missing.md",
+              "help": {
+                "text": "tool has no inputSchema. inputSchema is required by the specification. Without it a strict client rejects the tool outright and a lenient one lets the model invent arguments.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/input-schema-missing.md",
+                "markdown": "### tool has no inputSchema\n\ninputSchema is required by the specification. Without it a strict client rejects the tool outright and a lenient one lets the model invent arguments.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/input-schema-missing.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/input-schema-not-object",
+              "name": "tools/input-schema-not-object",
+              "shortDescription": {
+                "text": "inputSchema does not describe an object"
+              },
+              "fullDescription": {
+                "text": "Tool arguments are always a JSON object. A schema typed as string or array makes the model emit a shape the server cannot parse."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/input-schema-not-object.md",
+              "help": {
+                "text": "inputSchema does not describe an object. Tool arguments are always a JSON object. A schema typed as string or array makes the model emit a shape the server cannot parse.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/input-schema-not-object.md",
+                "markdown": "### inputSchema does not describe an object\n\nTool arguments are always a JSON object. A schema typed as string or array makes the model emit a shape the server cannot parse.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/input-schema-not-object.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/parameter-description-missing",
+              "name": "tools/parameter-description-missing",
+              "shortDescription": {
+                "text": "a declared parameter has no description"
+              },
+              "fullDescription": {
+                "text": "Parameter names alone rarely disambiguate: is `id` a numeric row id, a UUID or a slug? Models fill that gap by guessing, and the guess is invisible until the call fails."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/parameter-description-missing.md",
+              "help": {
+                "text": "a declared parameter has no description. Parameter names alone rarely disambiguate: is `id` a numeric row id, a UUID or a slug? Models fill that gap by guessing, and the guess is invisible until the call fails.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/parameter-description-missing.md",
+                "markdown": "### a declared parameter has no description\n\nParameter names alone rarely disambiguate: is `id` a numeric row id, a UUID or a slug? Models fill that gap by guessing, and the guess is invisible until the call fails.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/parameter-description-missing.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/schema-fragile-keywords",
+              "name": "tools/schema-fragile-keywords",
+              "shortDescription": {
+                "text": "inputSchema uses keywords many tool-call clients handle poorly"
+              },
+              "fullDescription": {
+                "text": "Composition keywords such as $ref, oneOf and allOf are valid JSON Schema but are frequently flattened or ignored by client-side validators, so the model sees a looser contract than the one you wrote."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/schema-fragile-keywords.md",
+              "help": {
+                "text": "inputSchema uses keywords many tool-call clients handle poorly. Composition keywords such as $ref, oneOf and allOf are valid JSON Schema but are frequently flattened or ignored by client-side validators, so the model sees a looser contract than the one you wrote.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/schema-fragile-keywords.md",
+                "markdown": "### inputSchema uses keywords many tool-call clients handle poorly\n\nComposition keywords such as $ref, oneOf and allOf are valid JSON Schema but are frequently flattened or ignored by client-side validators, so the model sees a looser contract than the one you wrote.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/schema-fragile-keywords.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "recommendation",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "tools/annotations-missing",
+              "name": "tools/annotations-missing",
+              "shortDescription": {
+                "text": "tool has no annotations at all"
+              },
+              "fullDescription": {
+                "text": "annotations is how a server describes the blast radius of a call — read-only, destructive, idempotent, open-world. Clients use it for confirmation prompts, and hosts use it for policy."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/annotations-missing.md",
+              "help": {
+                "text": "tool has no annotations at all. annotations is how a server describes the blast radius of a call — read-only, destructive, idempotent, open-world. Clients use it for confirmation prompts, and hosts use it for policy.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/annotations-missing.md",
+                "markdown": "### tool has no annotations at all\n\nannotations is how a server describes the blast radius of a call — read-only, destructive, idempotent, open-world. Clients use it for confirmation prompts, and hosts use it for policy.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/annotations-missing.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "recommendation",
+                "spec": "server/tools#tool-annotations"
+              }
+            },
+            {
+              "id": "tools/destructive-without-hint",
+              "name": "tools/destructive-without-hint",
+              "shortDescription": {
+                "text": "tool name implies a destructive action but destructiveHint is not set"
+              },
+              "fullDescription": {
+                "text": "A client only warns the user or requires confirmation when destructiveHint is true. A delete_* tool that omits it gets called silently, and the first evidence of the problem is missing data."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/destructive-without-hint.md",
+              "help": {
+                "text": "tool name implies a destructive action but destructiveHint is not set. A client only warns the user or requires confirmation when destructiveHint is true. A delete_* tool that omits it gets called silently, and the first evidence of the problem is missing data.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/destructive-without-hint.md",
+                "markdown": "### tool name implies a destructive action but destructiveHint is not set\n\nA client only warns the user or requires confirmation when destructiveHint is true. A delete_* tool that omits it gets called silently, and the first evidence of the problem is missing data.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/destructive-without-hint.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/tools#tool-annotations"
+              }
+            },
+            {
+              "id": "tools/read-only-without-hint",
+              "name": "tools/read-only-without-hint",
+              "shortDescription": {
+                "text": "tool name implies a read-only action but readOnlyHint is not set"
+              },
+              "fullDescription": {
+                "text": "Without readOnlyHint the client treats the call as potentially mutating: it may prompt the user, skip parallel execution, or block the call entirely in a locked-down host."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/read-only-without-hint.md",
+              "help": {
+                "text": "tool name implies a read-only action but readOnlyHint is not set. Without readOnlyHint the client treats the call as potentially mutating: it may prompt the user, skip parallel execution, or block the call entirely in a locked-down host.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/read-only-without-hint.md",
+                "markdown": "### tool name implies a read-only action but readOnlyHint is not set\n\nWithout readOnlyHint the client treats the call as potentially mutating: it may prompt the user, skip parallel execution, or block the call entirely in a locked-down host.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/read-only-without-hint.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/tools#tool-annotations"
+              }
+            },
+            {
+              "id": "tools/annotation-conflict",
+              "name": "tools/annotation-conflict",
+              "shortDescription": {
+                "text": "tool claims to be both read-only and destructive"
+              },
+              "fullDescription": {
+                "text": "readOnlyHint and destructiveHint contradict each other. Clients resolve the contradiction differently, so the same server gets a confirmation dialog in one host and none in another."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/annotation-conflict.md",
+              "help": {
+                "text": "tool claims to be both read-only and destructive. readOnlyHint and destructiveHint contradict each other. Clients resolve the contradiction differently, so the same server gets a confirmation dialog in one host and none in another.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/annotation-conflict.md",
+                "markdown": "### tool claims to be both read-only and destructive\n\nreadOnlyHint and destructiveHint contradict each other. Clients resolve the contradiction differently, so the same server gets a confirmation dialog in one host and none in another.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/annotation-conflict.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/tools#tool-annotations"
+              }
+            },
+            {
+              "id": "tools/description-injection",
+              "name": "tools/description-injection",
+              "shortDescription": {
+                "text": "tool description contains text that reads as prompt injection"
+              },
+              "fullDescription": {
+                "text": "Tool descriptions are model input, not documentation. Text that tells the model to ignore instructions, hide an action from the user, or send data to a URL is tool poisoning: the user sees a harmless-looking tool while the description drives the model."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-injection.md",
+              "help": {
+                "text": "tool description contains text that reads as prompt injection. Tool descriptions are model input, not documentation. Text that tells the model to ignore instructions, hide an action from the user, or send data to a URL is tool poisoning: the user sees a harmless-looking tool while the description drives the model.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-injection.md",
+                "markdown": "### tool description contains text that reads as prompt injection\n\nTool descriptions are model input, not documentation. Text that tells the model to ignore instructions, hide an action from the user, or send data to a URL is tool poisoning: the user sees a harmless-looking tool while the description drives the model.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/description-injection.md)"
+              },
+              "properties": {
+                "category": "security",
+                "tags": [
+                  "security"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "security-severity": "8.5",
+                "spec": "security/tool-poisoning"
+              }
+            },
+            {
+              "id": "tools/title-missing",
+              "name": "tools/title-missing",
+              "shortDescription": {
+                "text": "tool has no human-readable title"
+              },
+              "fullDescription": {
+                "text": "Some clients show the title in a permission prompt instead of the machine name, so a user is asked to approve `exec_sql_v2` rather than something they can judge."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/title-missing.md",
+              "help": {
+                "text": "tool has no human-readable title. Some clients show the title in a permission prompt instead of the machine name, so a user is asked to approve `exec_sql_v2` rather than something they can judge.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/title-missing.md",
+                "markdown": "### tool has no human-readable title\n\nSome clients show the title in a permission prompt instead of the machine name, so a user is asked to approve `exec_sql_v2` rather than something they can judge.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/tools/title-missing.md)"
+              },
+              "properties": {
+                "category": "tools",
+                "tags": [
+                  "tools"
+                ],
+                "precision": "very-high",
+                "problem.severity": "recommendation",
+                "spec": "server/tools"
+              }
+            },
+            {
+              "id": "resources/uri-missing",
+              "name": "resources/uri-missing",
+              "shortDescription": {
+                "text": "resource has no uri"
+              },
+              "fullDescription": {
+                "text": "The uri is how a resource is read and how it is referenced from a prompt or a tool result. A resource without one can be listed but never fetched."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/uri-missing.md",
+              "help": {
+                "text": "resource has no uri. The uri is how a resource is read and how it is referenced from a prompt or a tool result. A resource without one can be listed but never fetched.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/uri-missing.md",
+                "markdown": "### resource has no uri\n\nThe uri is how a resource is read and how it is referenced from a prompt or a tool result. A resource without one can be listed but never fetched.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/uri-missing.md)"
+              },
+              "properties": {
+                "category": "resources",
+                "tags": [
+                  "resources"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/resources"
+              }
+            },
+            {
+              "id": "resources/uri-not-absolute",
+              "name": "resources/uri-not-absolute",
+              "shortDescription": {
+                "text": "resource uri has no scheme"
+              },
+              "fullDescription": {
+                "text": "Relative URIs collide across servers: two servers both exposing `config.json` become indistinguishable once a client merges their resource lists."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/uri-not-absolute.md",
+              "help": {
+                "text": "resource uri has no scheme. Relative URIs collide across servers: two servers both exposing `config.json` become indistinguishable once a client merges their resource lists.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/uri-not-absolute.md",
+                "markdown": "### resource uri has no scheme\n\nRelative URIs collide across servers: two servers both exposing `config.json` become indistinguishable once a client merges their resource lists.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/uri-not-absolute.md)"
+              },
+              "properties": {
+                "category": "resources",
+                "tags": [
+                  "resources"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/resources"
+              }
+            },
+            {
+              "id": "resources/duplicate-uri",
+              "name": "resources/duplicate-uri",
+              "shortDescription": {
+                "text": "two resources share the same uri"
+              },
+              "fullDescription": {
+                "text": "A read request by uri returns one of them, chosen by the server's own ordering. The other resource is unreachable and nothing in the protocol exposes that."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/duplicate-uri.md",
+              "help": {
+                "text": "two resources share the same uri. A read request by uri returns one of them, chosen by the server's own ordering. The other resource is unreachable and nothing in the protocol exposes that.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/duplicate-uri.md",
+                "markdown": "### two resources share the same uri\n\nA read request by uri returns one of them, chosen by the server's own ordering. The other resource is unreachable and nothing in the protocol exposes that.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/duplicate-uri.md)"
+              },
+              "properties": {
+                "category": "resources",
+                "tags": [
+                  "resources"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/resources"
+              }
+            },
+            {
+              "id": "resources/name-missing",
+              "name": "resources/name-missing",
+              "shortDescription": {
+                "text": "resource has no name"
+              },
+              "fullDescription": {
+                "text": "The name is what a user sees in a client's resource picker. Without it the picker shows a raw URI, which users cannot tell apart or judge before attaching."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/name-missing.md",
+              "help": {
+                "text": "resource has no name. The name is what a user sees in a client's resource picker. Without it the picker shows a raw URI, which users cannot tell apart or judge before attaching.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/name-missing.md",
+                "markdown": "### resource has no name\n\nThe name is what a user sees in a client's resource picker. Without it the picker shows a raw URI, which users cannot tell apart or judge before attaching.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/name-missing.md)"
+              },
+              "properties": {
+                "category": "resources",
+                "tags": [
+                  "resources"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/resources"
+              }
+            },
+            {
+              "id": "resources/mime-type-missing",
+              "name": "resources/mime-type-missing",
+              "shortDescription": {
+                "text": "resource has no mimeType"
+              },
+              "fullDescription": {
+                "text": "Clients pick a renderer from the mime type. Without it a markdown document may be shown as plain text and a binary blob may be pushed into the context as mojibake."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/mime-type-missing.md",
+              "help": {
+                "text": "resource has no mimeType. Clients pick a renderer from the mime type. Without it a markdown document may be shown as plain text and a binary blob may be pushed into the context as mojibake.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/mime-type-missing.md",
+                "markdown": "### resource has no mimeType\n\nClients pick a renderer from the mime type. Without it a markdown document may be shown as plain text and a binary blob may be pushed into the context as mojibake.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/mime-type-missing.md)"
+              },
+              "properties": {
+                "category": "resources",
+                "tags": [
+                  "resources"
+                ],
+                "precision": "very-high",
+                "problem.severity": "recommendation",
+                "spec": "server/resources"
+              }
+            },
+            {
+              "id": "resources/template-uri-invalid",
+              "name": "resources/template-uri-invalid",
+              "shortDescription": {
+                "text": "resource template uriTemplate is not a valid URI template"
+              },
+              "fullDescription": {
+                "text": "A template without a scheme, or with an unclosed brace, cannot be expanded by the client. The resource silently never appears even though the server believes it published it."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/template-uri-invalid.md",
+              "help": {
+                "text": "resource template uriTemplate is not a valid URI template. A template without a scheme, or with an unclosed brace, cannot be expanded by the client. The resource silently never appears even though the server believes it published it.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/template-uri-invalid.md",
+                "markdown": "### resource template uriTemplate is not a valid URI template\n\nA template without a scheme, or with an unclosed brace, cannot be expanded by the client. The resource silently never appears even though the server believes it published it.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/resources/template-uri-invalid.md)"
+              },
+              "properties": {
+                "category": "resources",
+                "tags": [
+                  "resources"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/resources#resource-templates"
+              }
+            },
+            {
+              "id": "prompts/name-missing",
+              "name": "prompts/name-missing",
+              "shortDescription": {
+                "text": "prompt has no name"
+              },
+              "fullDescription": {
+                "text": "A prompt is retrieved by name when the user picks it from a slash menu. Without a name it can be listed but never invoked."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/name-missing.md",
+              "help": {
+                "text": "prompt has no name. A prompt is retrieved by name when the user picks it from a slash menu. Without a name it can be listed but never invoked.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/name-missing.md",
+                "markdown": "### prompt has no name\n\nA prompt is retrieved by name when the user picks it from a slash menu. Without a name it can be listed but never invoked.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/name-missing.md)"
+              },
+              "properties": {
+                "category": "prompts",
+                "tags": [
+                  "prompts"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/prompts"
+              }
+            },
+            {
+              "id": "prompts/duplicate-name",
+              "name": "prompts/duplicate-name",
+              "shortDescription": {
+                "text": "two prompts share the same name"
+              },
+              "fullDescription": {
+                "text": "Duplicate prompt names make selection order-dependent: whichever the server lists first wins, and the other becomes unreachable without any error."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/duplicate-name.md",
+              "help": {
+                "text": "two prompts share the same name. Duplicate prompt names make selection order-dependent: whichever the server lists first wins, and the other becomes unreachable without any error.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/duplicate-name.md",
+                "markdown": "### two prompts share the same name\n\nDuplicate prompt names make selection order-dependent: whichever the server lists first wins, and the other becomes unreachable without any error.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/duplicate-name.md)"
+              },
+              "properties": {
+                "category": "prompts",
+                "tags": [
+                  "prompts"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/prompts"
+              }
+            },
+            {
+              "id": "prompts/description-missing",
+              "name": "prompts/description-missing",
+              "shortDescription": {
+                "text": "prompt has no description"
+              },
+              "fullDescription": {
+                "text": "Users choose prompts from a list. A description is the only thing distinguishing `review` from `review-deep` in that list."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/description-missing.md",
+              "help": {
+                "text": "prompt has no description. Users choose prompts from a list. A description is the only thing distinguishing `review` from `review-deep` in that list.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/description-missing.md",
+                "markdown": "### prompt has no description\n\nUsers choose prompts from a list. A description is the only thing distinguishing `review` from `review-deep` in that list.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/description-missing.md)"
+              },
+              "properties": {
+                "category": "prompts",
+                "tags": [
+                  "prompts"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/prompts"
+              }
+            },
+            {
+              "id": "prompts/argument-description-missing",
+              "name": "prompts/argument-description-missing",
+              "shortDescription": {
+                "text": "prompt argument has no description"
+              },
+              "fullDescription": {
+                "text": "Prompt arguments are filled in by a user or by the model. An undescribed argument such as `mode: string` leaves both guessing the accepted values."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/argument-description-missing.md",
+              "help": {
+                "text": "prompt argument has no description. Prompt arguments are filled in by a user or by the model. An undescribed argument such as `mode: string` leaves both guessing the accepted values.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/argument-description-missing.md",
+                "markdown": "### prompt argument has no description\n\nPrompt arguments are filled in by a user or by the model. An undescribed argument such as `mode: string` leaves both guessing the accepted values.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/argument-description-missing.md)"
+              },
+              "properties": {
+                "category": "prompts",
+                "tags": [
+                  "prompts"
+                ],
+                "precision": "very-high",
+                "problem.severity": "warning",
+                "spec": "server/prompts"
+              }
+            },
+            {
+              "id": "prompts/argument-name-missing",
+              "name": "prompts/argument-name-missing",
+              "shortDescription": {
+                "text": "prompt argument has no name"
+              },
+              "fullDescription": {
+                "text": "An unnamed argument cannot be supplied: the client has no key to put in the arguments object, so the prompt always runs with that value missing."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/argument-name-missing.md",
+              "help": {
+                "text": "prompt argument has no name. An unnamed argument cannot be supplied: the client has no key to put in the arguments object, so the prompt always runs with that value missing.\n\nDocumentation: https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/argument-name-missing.md",
+                "markdown": "### prompt argument has no name\n\nAn unnamed argument cannot be supplied: the client has no key to put in the arguments object, so the prompt always runs with that value missing.\n\n**Documentation**: [Rule Documentation](https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/prompts/argument-name-missing.md)"
+              },
+              "properties": {
+                "category": "prompts",
+                "tags": [
+                  "prompts"
+                ],
+                "precision": "very-high",
+                "problem.severity": "error",
+                "spec": "server/prompts"
+              }
+            }
+          ]
+        }
+      },
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "server": "mock-vulnerable-server",
+        "serverVersion": "1.0.0",
+        "protocolVersion": "2024-11-05",
+        "command": "node dist/cli.js mock vulnerable",
+        "counts": {
+          "tools": 2,
+          "resources": 0,
+          "resourceTemplates": 0,
+          "prompts": 0
+        }
+      },
+      "results": [
+        {
+          "ruleId": "protocol/instructions-missing",
+          "ruleIndex": 6,
+          "level": "note",
+          "message": {
+            "text": "initialize result has no instructions Fix: Add a short instructions string describing what this server is for."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "dist/cli.js"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "server:(server)",
+                  "kind": "server"
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "mcpDoctor/v1": "protocol/instructions-missing|server|"
+          },
+          "properties": {
+            "hint": "Add a short instructions string describing what this server is for.",
+            "pointer": "/instructions"
+          }
+        },
+        {
+          "ruleId": "protocol/stdout-pollution",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "stdout received a line that is not JSON-RPC: DEBUG: server startup log on stdout (corrupting channel) Fix: Write diagnostics to stderr, never stdout."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "dist/cli.js"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "server:(server)",
+                  "kind": "server"
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "mcpDoctor/v1": "protocol/stdout-pollution|server|"
+          },
+          "properties": {
+            "hint": "Write diagnostics to stderr, never stdout."
+          }
+        },
+        {
+          "ruleId": "tools/description-injection",
+          "ruleIndex": 21,
+          "level": "error",
+          "message": {
+            "text": "tool \"fetch_news\" description asks the model to send data to a URL Fix: Describe what the tool does. Never address the model, and never ask it to hide anything from the user."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "dist/cli.js"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tool:fetch_news",
+                  "kind": "tool",
+                  "name": "fetch_news"
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "mcpDoctor/v1": "tools/description-injection|tool|fetch_news"
+          },
+          "properties": {
+            "hint": "Describe what the tool does. Never address the model, and never ask it to hide anything from the user."
+          }
+        },
+        {
+          "ruleId": "tools/description-injection",
+          "ruleIndex": 21,
+          "level": "error",
+          "message": {
+            "text": "tool \"fetch_news\" description tries to override prior instructions Fix: Describe what the tool does. Never address the model, and never ask it to hide anything from the user."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "dist/cli.js"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tool:fetch_news",
+                  "kind": "tool",
+                  "name": "fetch_news"
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "mcpDoctor/v1": "tools/description-injection|tool|fetch_news"
+          },
+          "properties": {
+            "hint": "Describe what the tool does. Never address the model, and never ask it to hide anything from the user."
+          }
+        },
+        {
+          "ruleId": "tools/destructive-without-hint",
+          "ruleIndex": 18,
+          "level": "error",
+          "message": {
+            "text": "tool \"delete_user_data\" looks destructive but does not set destructiveHint Fix: Set annotations.destructiveHint = true, or rename the tool if it is not destructive."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "dist/cli.js"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tool:delete_user_data",
+                  "kind": "tool",
+                  "name": "delete_user_data"
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "mcpDoctor/v1": "tools/destructive-without-hint|tool|delete_user_data"
+          },
+          "properties": {
+            "hint": "Set annotations.destructiveHint = true, or rename the tool if it is not destructive."
+          }
+        },
+        {
+          "ruleId": "tools/parameter-description-missing",
+          "ruleIndex": 15,
+          "level": "warning",
+          "message": {
+            "text": "tool \"delete_user_data\" parameter \"userId\" has no description Fix: Describe the expected value and, where useful, give an example."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "dist/cli.js"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tool:delete_user_data",
+                  "kind": "tool",
+                  "name": "delete_user_data"
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "mcpDoctor/v1": "tools/parameter-description-missing|tool|delete_user_data"
+          },
+          "properties": {
+            "hint": "Describe the expected value and, where useful, give an example.",
+            "pointer": "/tools/…/inputSchema/properties/userId"
+          }
+        }
+      ]
+    }
+  ]
+}

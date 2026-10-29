@@ -8,4 +8,5 @@ coverage/
 !.env.example
 *.tsbuildinfo
 *.sarif
+!examples/**/*.sarif
 .agents/
