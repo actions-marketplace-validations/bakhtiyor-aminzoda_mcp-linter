@@ -82,6 +82,33 @@ note  protocol/instructions-missing (1 occurrence)
 
 ---
 
+## 🔬 Empirical Verification & Live Proofs
+
+`mcp-linter` has been benchmarked against official reference packages maintained by Anthropic in the Model Context Protocol organization. Any reviewer or developer can replicate these findings locally in seconds:
+
+| Official Server Audited | Protocol | Tools Discovered | Health Scorecard | Real Findings Identified | Verification Report |
+| :--- | :---: | :---: | :---: | :--- | :---: |
+| `@modelcontextprotocol/server-everything` | `2025-06-18` | 17 (7 res, 2 tmpl, 4 prompts) | **`90/100` (Grade B)** | 1 parameter missing description (`resourceType`) | [View Report](examples/reports/server-everything.md) |
+| `@modelcontextprotocol/server-memory` | `2025-06-18` | 9 (1 resource) | **`66/100` (Grade C)** | 4 parameters missing descriptions, missing `instructions` | [View Report](examples/reports/server-memory.md) |
+| `@modelcontextprotocol/server-filesystem` | `2025-06-18` | 14 | **`38/100` (Grade D)** | 18 parameters missing descriptions (`write_file`, `edit_file`) | [View Report](examples/reports/server-filesystem.md) |
+| Built-in Clean Mock | `2024-11-05` | 2 | **`100/100` (Grade A+)** | Zero issues, perfect protocol conformance | *Native* |
+| Built-in Vulnerable Mock | `2024-11-05` | 2 | **`0/100` (Grade F)** | Catches Prompt Injection, Stdout Pollution, Destructive hint omission | [View SARIF](examples/reports/vulnerable-server.sarif) |
+
+### 🚀 Instant 5-Second Verification Commands
+
+```bash
+# Verify official memory server audit locally (zero install):
+npx mcp-linter -- npx -y @modelcontextprotocol/server-memory
+
+# Verify with automated remediation patch synthesis:
+npx mcp-linter --fix -- npx -y @modelcontextprotocol/server-memory
+
+# Audit and output Markdown report with Shields.io badges:
+npx mcp-linter --format markdown -- npx -y @modelcontextprotocol/server-everything
+```
+
+---
+
 ## 🛠️ CLI Options
 
 ```text

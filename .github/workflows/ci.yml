@@ -43,3 +43,9 @@ jobs:
 
       - name: Self-Audit Vulnerable Mock (expect exit 1)
         run: node dist/cli.js --fail-on none -- node dist/cli.js mock vulnerable
+
+      - name: Live Benchmark: Audit @modelcontextprotocol/server-memory
+        run: node dist/cli.js --timeout 25000 --fail-on none --format markdown -- npx -y @modelcontextprotocol/server-memory >> $GITHUB_STEP_SUMMARY
+
+      - name: Live Benchmark: Audit @modelcontextprotocol/server-everything
+        run: node dist/cli.js --timeout 25000 --fail-on none --format markdown -- npx -y @modelcontextprotocol/server-everything >> $GITHUB_STEP_SUMMARY
