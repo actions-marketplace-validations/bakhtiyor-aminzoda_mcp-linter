@@ -2,7 +2,7 @@ name: 'mcp-linter'
 description: 'Zero-dependency security auditor and protocol linter for Model Context Protocol (MCP) servers.'
 author: 'Bakhtior Aminzoda'
 branding:
-  icon: 'shield-check'
+  icon: 'shield'
   color: 'blue'
 
 inputs:
