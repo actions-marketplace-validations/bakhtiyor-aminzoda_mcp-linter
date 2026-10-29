@@ -5,7 +5,7 @@
 **Zero-dependency security auditor and protocol linter for Model Context Protocol (MCP) servers.**
 
 [![npm version](https://img.shields.io/npm/v/mcp-linter.svg)](https://www.npmjs.com/package/mcp-linter)
-[![CI](https://github.com/bakhtiyor-aminzoda/mcp-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhtiyor-aminzoda/mcp-doctor/actions/workflows/ci.yml)
+[![CI](https://github.com/bakhtiyor-aminzoda/mcp-linter/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhtiyor-aminzoda/mcp-linter/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](https://nodejs.org/)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](package.json)
@@ -233,7 +233,7 @@ jobs:
         run: npm ci && npm run build
 
       - name: Audit MCP Server
-        uses: bakhtiyor-aminzoda/mcp-doctor@v1
+        uses: bakhtiyor-aminzoda/mcp-linter@v1
         with:
           command: 'node dist/index.js'
           format: 'sarif'
@@ -292,7 +292,7 @@ Contributions are warmly welcomed!
 
 ```bash
 # Clone the repository
-git clone https://github.com/bakhtiyor-aminzoda/mcp-doctor.git
+git clone https://github.com/bakhtiyor-aminzoda/mcp-linter.git
 cd mcp-doctor
 
 # Install development dependencies

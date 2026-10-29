@@ -60,7 +60,7 @@ describe("SARIF v2.1.0 Reporter Conformance", () => {
     expect(driver.name).toBe("mcp-doctor");
     expect(driver.version).toBe("0.1.0");
     expect(driver.semanticVersion).toBe("0.1.0");
-    expect(driver.informationUri).toBe("https://github.com/bakhtiyor-aminzoda/mcp-doctor");
+    expect(driver.informationUri).toBe("https://github.com/bakhtiyor-aminzoda/mcp-linter");
     expect(driver.rules.length).toBe(ALL_RULES.length);
   });
 
@@ -80,7 +80,7 @@ describe("SARIF v2.1.0 Reporter Conformance", () => {
 
       // helpUri links to GitHub docs
       expect(rule.helpUri).toBe(
-        `https://github.com/bakhtiyor-aminzoda/mcp-doctor/blob/main/docs/rules/${rule.id}.md`,
+        `https://github.com/bakhtiyor-aminzoda/mcp-linter/blob/main/docs/rules/${rule.id}.md`,
       );
 
       // help object has both text and markdown

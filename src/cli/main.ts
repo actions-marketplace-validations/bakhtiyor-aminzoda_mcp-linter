@@ -68,7 +68,7 @@ export async function run(argv: readonly string[], environment: CliEnvironment):
       return EXIT_ERROR;
     }
     const starterConfig = {
-      $schema: "https://raw.githubusercontent.com/bakhtiyor-aminzoda/mcp-doctor/main/docs/schema.json",
+      $schema: "https://raw.githubusercontent.com/bakhtiyor-aminzoda/mcp-linter/main/docs/schema.json",
       timeout: 15000,
       failOn: "error",
       rules: {

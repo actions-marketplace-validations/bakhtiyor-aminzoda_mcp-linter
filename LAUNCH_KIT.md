@@ -31,7 +31,7 @@ npx mcp-doctor -- npx -y @modelcontextprotocol/server-filesystem .
 - **Zero Runtime Dependencies**: Written in pure Node.js built-ins.
 - **GitHub Action & SARIF v2.1.0**: Automatically uploads findings directly to your GitHub repository's "Security > Code scanning" tab.
 
-Repo: https://github.com/bakhtiyor-aminzoda/mcp-doctor
+Repo: https://github.com/bakhtiyor-aminzoda/mcp-linter
 
 I’d love your feedback! Are there specific MCP edge cases or failure modes you'd like to see added?
 ```
@@ -44,7 +44,7 @@ I’d love your feedback! Are there specific MCP edge cases or failure modes you
 
 **URL / Text**:
 ```markdown
-Link: https://github.com/bakhtiyor-aminzoda/mcp-doctor
+Link: https://github.com/bakhtiyor-aminzoda/mcp-linter
 
 Hi HN!
 
@@ -83,7 +83,7 @@ Features:
 Audit your server in 5 seconds:
 npx mcp-doctor -- <your-server-command>
 
-⭐ GitHub: https://github.com/bakhtiyor-aminzoda/mcp-doctor
+⭐ GitHub: https://github.com/bakhtiyor-aminzoda/mcp-linter
 
 #MCP #Anthropic #Claude #AIagents #CyberSecurity #OpenSource
 ```

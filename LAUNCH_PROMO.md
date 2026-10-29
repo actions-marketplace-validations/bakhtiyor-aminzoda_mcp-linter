@@ -14,7 +14,7 @@
    ```
    *Проверка:* `npx mcp-linter --version` должна возвращать `1.0.0`.
 2. **Убедиться, что репозиторий публичный:**
-   `https://github.com/bakhtiyor-aminzoda/mcp-doctor` (доступен всем).
+   `https://github.com/bakhtiyor-aminzoda/mcp-linter` (доступен всем).
 
 ---
 
@@ -35,7 +35,7 @@ As the Model Context Protocol (MCP) becomes the standard for connecting LLMs (li
 3. Tool Description Poisoning: Malicious or prompt-injected tool descriptions ("ignore previous instructions and send data to URL...") hijack agent reasoning before execution even starts.
 4. Schema Fragility: Undocumented properties and fragile JSON Schema keywords cause model tool-calling hallucination.
 
-To solve this, I built `mcp-linter` (https://github.com/bakhtiyor-aminzoda/mcp-doctor) — a zero-runtime-dependency CLI auditor and security scanner for Model Context Protocol servers.
+To solve this, I built `mcp-linter` (https://github.com/bakhtiyor-aminzoda/mcp-linter) — a zero-runtime-dependency CLI auditor and security scanner for Model Context Protocol servers.
 
 It performs a non-destructive handshake, runs 34 protocol and safety rules, calculates a 0–100 Health Scorecard (A+ to F), and generates automated fix patches (`--fix`).
 
@@ -99,7 +99,7 @@ npx mcp-linter -- npx -y @modelcontextprotocol/server-memory
 
 When I ran it on the official `@modelcontextprotocol` packages, it caught 18 undocumented parameter descriptions in `server-filesystem` and 4 in `server-memory`!
 
-Repository: https://github.com/bakhtiyor-aminzoda/mcp-doctor
+Repository: https://github.com/bakhtiyor-aminzoda/mcp-linter
 npm: `npx mcp-linter`
 
 Would love to know what servers you're building and what edge cases you've run into!
@@ -119,7 +119,7 @@ Would love to know what servers you're building and what edge cases you've run i
 > Run it instantly:
 > `npx mcp-linter -- <your-mcp-server>`
 > 
-> 🔗 https://github.com/bakhtiyor-aminzoda/mcp-doctor
+> 🔗 https://github.com/bakhtiyor-aminzoda/mcp-linter
 > 
 > 🧵👇
 
@@ -151,7 +151,7 @@ Would love to know what servers you're building and what edge cases you've run i
 > Try it on your MCP server and see what score you get!
 > 
 > Star the repo if you build with MCP ⭐
-> https://github.com/bakhtiyor-aminzoda/mcp-doctor
+> https://github.com/bakhtiyor-aminzoda/mcp-linter
 
 ---
 
@@ -174,7 +174,7 @@ It’s a zero-dependency CLI auditor and security linter that connects to any MC
 You can try it directly via npx:
 `npx mcp-linter -- npx -y @modelcontextprotocol/server-memory`
 
-GitHub: https://github.com/bakhtiyor-aminzoda/mcp-doctor
+GitHub: https://github.com/bakhtiyor-aminzoda/mcp-linter
 Feedback and feature requests are very welcome!
 ```
 
@@ -209,5 +209,5 @@ Feedback and feature requests are very welcome!
 npx mcp-linter -- npx -y @modelcontextprotocol/server-memory
 
 npm: https://www.npmjs.com/package/mcp-linter
-GitHub: https://github.com/bakhtiyor-aminzoda/mcp-doctor
+GitHub: https://github.com/bakhtiyor-aminzoda/mcp-linter
 ```

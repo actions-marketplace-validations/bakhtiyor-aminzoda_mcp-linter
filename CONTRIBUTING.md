@@ -10,7 +10,7 @@ Thank you for your interest in contributing to **mcp-doctor**! We welcome bug re
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/bakhtiyor-aminzoda/mcp-doctor.git
+git clone https://github.com/bakhtiyor-aminzoda/mcp-linter.git
 cd mcp-doctor
 
 # 2. Install dev dependencies

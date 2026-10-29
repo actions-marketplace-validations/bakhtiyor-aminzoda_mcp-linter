@@ -9,7 +9,7 @@
 2. Опасный инструмент `delete_user` без специальной аннотации выполняется автономным агентом без подтверждения человека.
 3. В описание инструмента можно незаметно встроить Prompt Injection, который заставит модель слить конфиденциальные данные.
 
-Чтобы решить эту проблему, я разработал [**mcp-linter**](https://github.com/bakhtiyor-aminzoda/mcp-doctor) — утилиту и линтер безопасности без единой сторонней зависимости, которую теперь можно запустить прямо из npm:
+Чтобы решить эту проблему, я разработал [**mcp-linter**](https://github.com/bakhtiyor-aminzoda/mcp-linter) — утилиту и линтер безопасности без единой сторонней зависимости, которую теперь можно запустить прямо из npm:
 
 ```bash
 npx mcp-linter -- <команда-запуска-вашего-сервера>
@@ -141,7 +141,7 @@ jobs:
       - run: npm ci && npm run build
       
       - name: Audit MCP Server
-        uses: bakhtiyor-aminzoda/mcp-doctor@v1
+        uses: bakhtiyor-aminzoda/mcp-linter@v1
         with:
           command: 'node dist/index.js'
           format: 'sarif'
@@ -160,7 +160,7 @@ jobs:
 
 Проект полностью открытый (лицензия MIT). 
 * **npm:** [https://www.npmjs.com/package/mcp-linter](https://www.npmjs.com/package/mcp-linter)
-* **GitHub:** [https://github.com/bakhtiyor-aminzoda/mcp-doctor](https://github.com/bakhtiyor-aminzoda/mcp-doctor)
+* **GitHub:** [https://github.com/bakhtiyor-aminzoda/mcp-linter](https://github.com/bakhtiyor-aminzoda/mcp-linter)
 
 В ближайших планах:
 1. Поддержка удалённых транспортов MCP: **Server-Sent Events (SSE)** и **WebSocket**.

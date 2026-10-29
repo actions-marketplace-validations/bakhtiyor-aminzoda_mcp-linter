@@ -17,7 +17,7 @@ If you discover a security vulnerability in `mcp-doctor`, or a prompt-injection 
 Instead, please report it via one of the following channels:
 
 - **Email**: `bakhtiyor.aminzoda@gmail.com`
-- **GitHub Security Advisory**: Submit a private advisory at [https://github.com/bakhtiyor-aminzoda/mcp-doctor/security/advisories](https://github.com/bakhtiyor-aminzoda/mcp-doctor/security/advisories)
+- **GitHub Security Advisory**: Submit a private advisory at [https://github.com/bakhtiyor-aminzoda/mcp-linter/security/advisories](https://github.com/bakhtiyor-aminzoda/mcp-linter/security/advisories)
 
 ### What to include in your report:
 1. Description of the vulnerability or evasion pattern.

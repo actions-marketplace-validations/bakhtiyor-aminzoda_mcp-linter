@@ -20,11 +20,11 @@
   "author": "Bakhtior Aminzoda <bakhtiyor.aminzoda@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bakhtiyor-aminzoda/mcp-doctor.git"
+    "url": "https://github.com/bakhtiyor-aminzoda/mcp-linter.git"
   },
-  "homepage": "https://github.com/bakhtiyor-aminzoda/mcp-doctor#readme",
+  "homepage": "https://github.com/bakhtiyor-aminzoda/mcp-linter#readme",
   "bugs": {
-    "url": "https://github.com/bakhtiyor-aminzoda/mcp-doctor/issues"
+    "url": "https://github.com/bakhtiyor-aminzoda/mcp-linter/issues"
   },
   "license": "MIT",
   "type": "module",

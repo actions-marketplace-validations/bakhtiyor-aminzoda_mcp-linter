@@ -17,7 +17,7 @@ const validateSchema = ajv.compile(schema);
 const LEVEL = { error: 'error', warn: 'warning', info: 'note' };
 const SARIF_VERSION = '2.1.0';
 const SARIF_SCHEMA = 'https://json.schemastore.org/sarif-2.1.0.json';
-const REPOSITORY_BASE_URI = 'https://github.com/bakhtiyor-aminzoda/mcp-doctor';
+const REPOSITORY_BASE_URI = 'https://github.com/bakhtiyor-aminzoda/mcp-linter';
 const DOCS_BASE_URI = `${REPOSITORY_BASE_URI}/blob/main/docs/rules`;
 
 function buildRuleDescriptorFixed(rule) {

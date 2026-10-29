@@ -14,7 +14,7 @@ This file contains application dossiers for the Anthropic and OpenAI open-source
 - **Last Name:** `Aminzoda`
 - **Email:** `bakhtiyor.aminzoda@gmail.com`
 - **Project Name:** `mcp-linter` (Repository: `mcp-doctor`)
-- **Repository URL:** `https://github.com/bakhtiyor-aminzoda/mcp-doctor`
+- **Repository URL:** `https://github.com/bakhtiyor-aminzoda/mcp-linter`
 - **License:** `MIT License`
 - **Your Role:** `Creator & Lead Maintainer`
 
@@ -40,7 +40,7 @@ This file contains application dossiers for the Anthropic and OpenAI open-source
 
 - **Full Name:** `Bakhtior Aminzoda`
 - **Email:** `bakhtiyor.aminzoda@gmail.com`
-- **Repository URL:** `https://github.com/bakhtiyor-aminzoda/mcp-doctor`
+- **Repository URL:** `https://github.com/bakhtiyor-aminzoda/mcp-linter`
 - **Primary Language / Ecosystem:** `TypeScript / Node.js / AI Developer Tooling & Agent Security`
 - **License Type:** `MIT License (OSI-Approved)`
 
