@@ -1,6 +1,6 @@
 {
   "name": "mcp-linter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Audit a Model Context Protocol server: protocol conformance, tool safety annotations, schema quality and prompt-injection heuristics. Zero runtime dependencies.",
   "keywords": [
     "mcp",
