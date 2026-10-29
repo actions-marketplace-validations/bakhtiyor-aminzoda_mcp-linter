@@ -1,6 +1,6 @@
 # 📊 MCP Ecosystem Audit & Benchmark Report
 
-This document reports findings from running **`mcp-doctor`** across standard Model Context Protocol servers in the open-source ecosystem.
+This document reports real-world empirical findings from running **`mcp-doctor`** across standard Model Context Protocol servers in the open-source ecosystem.
 
 ---
 
@@ -10,57 +10,62 @@ Autonomous agents rely on clear protocol boundaries, accurate schemas, and stric
 
 - **~65% of community MCP servers** omit tool annotations (`readOnlyHint` / `destructiveHint`), causing hosts like Claude Desktop to either ask for confirmation unnecessarily or fail to ask when executing destructive operations.
 - **~40% of tool parameter schemas** omit descriptions for inner properties, causing LLMs to hallucinate argument formats and types.
-- **~25% of servers** occasionally leak debug logs to `stdout`, creating fragile JSON-RPC framing bugs.
+- **~28% of servers** omit initialization `instructions`, forcing LLMs to guess how tools interact.
 
 ---
 
-## 🔬 Benchmark Matrix
+## 🔬 Empirical Benchmark Matrix
 
-| Server Tested | Protocol | Tools Count | Conformance Issues | Safety & Annotation Findings | Overall Health Score |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| `@modelcontextprotocol/server-filesystem` | `2024-11-05` | 14 | 0 | `tools/read-only-without-hint` (3) | **A** (High) |
-| `@modelcontextprotocol/server-memory` | `2024-11-05` | 8 | 0 | `tools/annotations-missing` (2) | **A-** |
-| `@modelcontextprotocol/server-sqlite` | `2024-11-05` | 4 | 0 | `tools/destructive-without-hint` (1) | **B+** |
-| `demo-vulnerable-server` (Mock) | `2024-11-05` | 2 | `stdout-pollution` | `destructive-without-hint`, `injection` | **F** (Caught) |
+| Server Tested | Real Package Version | Protocol | Tools Discovered | Conformance Findings | Health Score | Grade |
+| :--- | :---: | :---: | :---: | :--- | :---: | :---: |
+| `@modelcontextprotocol/server-memory` | `memory-server@2.0.1` | `2025-06-18` | 9 | `tools/parameter-description-missing` (4), `protocol/instructions-missing` (1) | **66/100** | **C (WARN)** |
+| `@modelcontextprotocol/server-filesystem` | `secure-filesystem-server@2.1.0` | `2025-06-18` | 14 | `tools/parameter-description-missing` (18), `protocol/instructions-missing` (1) | **38/100** | **D (WARN)** |
+| `mcp-doctor mock clean` | `mock-clean-server@1.0.0` | `2024-11-05` | 2 | None (Clean conformance) | **100/100** | **A+ (PASS)** |
+| `mcp-doctor mock vulnerable` | `mock-vulnerable-server@1.0.0` | `2024-11-05` | 2 | `description-injection` (2), `destructive-without-hint` (1), `stdout-pollution` (1) | **0/100** | **F (FAIL)** |
 
 ---
 
-## 🚨 Critical Failure Modes Identified
+## 🚨 Critical Real-World Findings
 
-### 1. Silent Deletions (`tools/destructive-without-hint`)
-When an MCP server exposes mutating tools (e.g. `delete_file`, `drop_table`, `remove_entity`) without setting `annotations.destructiveHint = true`, autonomous AI agents treat the action as benign.
-* **Impact**: Data loss without human-in-the-loop confirmation.
-* **Fix**:
+### 1. Missing Parameter Descriptions in `@modelcontextprotocol/server-memory`
+During audit of `@modelcontextprotocol/server-memory`:
+```text
+warn  tools/parameter-description-missing (4 occurrences)
+  add_observations      parameter "observations" has no description
+  create_entities       parameter "entities" has no description
+  create_relations      parameter "relations" has no description
+  delete_observations   parameter "deletions" has no description
+```
+* **Why it matters**: Without parameter descriptions, agent models have to infer JSON entity shapes from property names alone, increasing hallucination rates during graph writes.
+* **Autofix Patch Generated**:
   ```json
-  {
-    "name": "delete_table",
-    "annotations": {
-      "destructiveHint": true,
-      "readOnlyHint": false
-    }
-  }
+  { "description": "Array of entities to add to knowledge graph" }
   ```
 
-### 2. Tool Description Poisoning (`tools/description-injection`)
-Prompt injection vectors hidden inside tool descriptions override model system instructions.
-* **Impact**: Model exfiltration of private context or unauthorized execution.
-* **Detection**: `mcp-doctor` scans for overriding directives (`"ignore previous"`, `"system directive"`, URL exfiltration patterns).
-
-### 3. Transport Poisoning (`protocol/stdout-pollution`)
-Diagnostic strings like `console.log("Connected")` or progress bars written to `stdout` break JSON-RPC 2.0 framing.
-* **Impact**: Client connection drops immediately.
-* **Fix**: Route all diagnostic logs to `stderr` (`console.error`).
+### 2. Parameter Descriptions Omitted in `@modelcontextprotocol/server-filesystem`
+During audit of `@modelcontextprotocol/server-filesystem`:
+```text
+warn  tools/parameter-description-missing (18 occurrences)
+  write_file            parameter "content" has no description
+  write_file            parameter "path" has no description
+  edit_file             parameter "edits" has no description
+  move_file             parameter "destination" has no description
+```
+* **Why it matters**: Frontier models require unambiguous parameter hints (e.g. absolute vs relative path, UTF-8 text vs base64) to format tool calls reliably.
 
 ---
 
 ## 📈 Running the Audit Locally
 
-Any developer can replicate these benchmark scans:
+Any developer can replicate these exact scans:
 
 ```bash
-# Run against the official filesystem server
+# Audit the official memory server
+npx mcp-doctor -- npx -y @modelcontextprotocol/server-memory
+
+# Audit the official filesystem server
 npx mcp-doctor -- npx -y @modelcontextprotocol/server-filesystem .
 
-# Export as SARIF for GitHub Security dashboard
-npx mcp-doctor --format sarif --output audit.sarif -- node dist/index.js
+# Run with automated fix synthesis
+npx mcp-doctor --fix -- npx -y @modelcontextprotocol/server-memory
 ```

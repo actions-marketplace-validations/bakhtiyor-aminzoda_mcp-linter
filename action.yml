@@ -14,7 +14,7 @@ inputs:
     required: false
     default: 'error'
   format:
-    description: 'Output format (pretty, json, sarif)'
+    description: 'Output format (pretty, json, sarif, markdown)'
     required: false
     default: 'sarif'
   output-file:

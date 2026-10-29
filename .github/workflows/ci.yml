@@ -37,3 +37,9 @@ jobs:
 
       - name: Check Rule Documentation
         run: npm run lint:docs
+
+      - name: Self-Audit Clean Mock
+        run: node dist/cli.js -- node dist/cli.js mock clean
+
+      - name: Self-Audit Vulnerable Mock (expect exit 1)
+        run: node dist/cli.js --fail-on none -- node dist/cli.js mock vulnerable

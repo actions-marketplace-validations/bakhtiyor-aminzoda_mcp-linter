@@ -34,7 +34,12 @@ export interface Report {
 }
 
 export function calculateScorecard(summary: { error: number; warn: number; info: number }): ReportScore {
-  const penalty = summary.error * 25 + summary.warn * 10 + summary.info * 2;
+  const errorPenalty = summary.error * 25;
+  const warnPenalty = summary.warn <= 3 
+    ? summary.warn * 10 
+    : 30 + Math.min(30, (summary.warn - 3) * 2);
+  const infoPenalty = Math.min(10, summary.info * 2);
+  const penalty = errorPenalty + warnPenalty + infoPenalty;
   const score = Math.max(0, Math.min(100, 100 - penalty));
 
   let grade: "A+" | "A" | "B" | "C" | "D" | "F";
@@ -45,7 +50,9 @@ export function calculateScorecard(summary: { error: number; warn: number; info:
     grade = score >= 50 ? "D" : "F";
   } else if (summary.warn > 0) {
     status = "WARN";
-    grade = score >= 85 ? "B" : "C";
+    if (score >= 80) grade = "B";
+    else if (score >= 60) grade = "C";
+    else grade = "D";
   } else {
     status = "PASS";
     grade = score >= 98 ? "A+" : "A";

@@ -54,11 +54,25 @@ export class StdioClient {
   static start(config: StdioServerConfig): Promise<StdioClient> {
     const env = { ...process.env, ...config.env };
     const resolved = resolveCommand(config.command, env);
-    const child = spawn(resolved, [...config.args], {
+
+    const isWindowsBatch = process.platform === "win32" && /\.(cmd|bat)$/i.test(resolved);
+    let spawnExe = resolved;
+    let spawnArgs = [...config.args];
+
+    if (isWindowsBatch) {
+      spawnExe = process.env.ComSpec || "cmd.exe";
+      const escapedTarget = `"${resolved}"`;
+      const escapedArgs = config.args.map((arg) => (arg.includes(" ") ? `"${arg}"` : arg));
+      const fullCmd = `"${escapedTarget} ${escapedArgs.join(" ")}"`.trim();
+      spawnArgs = ["/d", "/s", "/c", fullCmd];
+    }
+
+    const child = spawn(spawnExe, spawnArgs, {
       cwd: config.cwd,
       env,
       stdio: ["pipe", "pipe", "pipe"],
       windowsHide: true,
+      windowsVerbatimArguments: isWindowsBatch,
     });
 
     return new Promise<StdioClient>((resolve, reject) => {
