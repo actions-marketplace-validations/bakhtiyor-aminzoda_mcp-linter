@@ -1,0 +1,39 @@
+name: Bug report
+description: Create a report to help us improve mcp-doctor
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue with `mcp-doctor`!
+  - type: input
+    id: version
+    attributes:
+      label: mcp-doctor version
+      description: What version of mcp-doctor are you running? (Run `mcp-doctor --version`)
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      description: What version of Node.js are you using? (Run `node --version`)
+      placeholder: "v20.x or v22.x"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe what command you ran and what unexpected output occurred.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+    validations:
+      required: true

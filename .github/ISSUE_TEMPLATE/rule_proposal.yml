@@ -1,0 +1,53 @@
+name: New Rule Proposal
+description: Propose a new validation or security rule for mcp-doctor
+title: "[RULE]: "
+labels: ["enhancement", "rule-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Suggest a new audit rule to help detect issues or security vulnerabilities in MCP servers.
+  - type: input
+    id: rule-id
+    attributes:
+      label: Proposed Rule ID
+      description: Follow the category/rule-name format (e.g. tools/timeout-hint-missing)
+      placeholder: "tools/..."
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - protocol
+        - tools
+        - security
+        - resources
+        - prompts
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Default Severity
+      options:
+        - error
+        - warn
+        - info
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why is this rule needed?
+      description: Explain the failure mode this rule prevents for LLMs, hosts, or developers.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Server Payload
+      description: Show a JSON payload that would trigger this rule, and how the fix should look.
+    validations:
+      required: true
