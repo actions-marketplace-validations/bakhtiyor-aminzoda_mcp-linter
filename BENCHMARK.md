@@ -18,7 +18,8 @@ Autonomous agents rely on clear protocol boundaries, accurate schemas, and stric
 
 | Server Tested | Real Package Version | Protocol | Tools Discovered | Conformance Findings | Health Score | Grade |
 | :--- | :---: | :---: | :---: | :--- | :---: | :---: |
-| `@modelcontextprotocol/server-memory` | `memory-server@2.0.1` | `2025-06-18` | 9 | `tools/parameter-description-missing` (4), `protocol/instructions-missing` (1) | **66/100** | **C (WARN)** |
+| `@modelcontextprotocol/server-everything` | `mcp-servers/everything@2.1.0` | `2025-06-18` | 17 (7 res, 2 tmpl, 4 prompts) | `tools/parameter-description-missing` (1) | **90/100** | **B (WARN)** |
+| `@modelcontextprotocol/server-memory` | `memory-server@2.0.1` | `2025-06-18` | 9 (1 resource) | `tools/parameter-description-missing` (4), `protocol/instructions-missing` (1) | **66/100** | **C (WARN)** |
 | `@modelcontextprotocol/server-filesystem` | `secure-filesystem-server@2.1.0` | `2025-06-18` | 14 | `tools/parameter-description-missing` (18), `protocol/instructions-missing` (1) | **38/100** | **D (WARN)** |
 | `mcp-doctor mock clean` | `mock-clean-server@1.0.0` | `2024-11-05` | 2 | None (Clean conformance) | **100/100** | **A+ (PASS)** |
 | `mcp-doctor mock vulnerable` | `mock-vulnerable-server@1.0.0` | `2024-11-05` | 2 | `description-injection` (2), `destructive-without-hint` (1), `stdout-pollution` (1) | **0/100** | **F (FAIL)** |
