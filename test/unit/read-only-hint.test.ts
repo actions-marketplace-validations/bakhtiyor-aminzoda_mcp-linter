@@ -4,8 +4,8 @@ import type { RuleContext } from "../../src/rules/rule.js";
 
 const rule = toolSafetyRules.find((r) => r.id === "tools/read-only-without-hint")!;
 
-function check(annotations?: Record<string, unknown>) {
-  const snapshot = { tools: [{ name: "get_network_request", annotations }] };
+function check(annotations?: Record<string, unknown>, name = "get_network_request") {
+  const snapshot = { tools: [{ name, annotations }] };
   return rule.check({ snapshot } as unknown as RuleContext);
 }
 
@@ -21,5 +21,9 @@ describe("tools/read-only-without-hint", () => {
 
   it("passes when readOnlyHint is true", () => {
     expect(check({ readOnlyHint: true })).toHaveLength(0);
+  });
+
+  it("does not treat download_* tools as read-only, since they write to disk", () => {
+    expect(check(undefined, "download_figma_images")).toHaveLength(0);
   });
 });

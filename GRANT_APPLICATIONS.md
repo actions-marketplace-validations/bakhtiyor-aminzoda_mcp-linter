@@ -13,7 +13,7 @@ This file contains application dossiers for the Anthropic and OpenAI open-source
 - **First Name:** `Bakhtior`
 - **Last Name:** `Aminzoda`
 - **Email:** `bakhtiyor.aminzoda@gmail.com`
-- **Project Name:** `mcp-linter` (Repository: `mcp-doctor`)
+- **Project Name:** `mcp-linter` (Repository: `bakhtiyor-aminzoda/mcp-linter`)
 - **Repository URL:** `https://github.com/bakhtiyor-aminzoda/mcp-linter`
 - **License:** `MIT License`
 - **Your Role:** `Creator & Lead Maintainer`
@@ -45,7 +45,7 @@ This file contains application dossiers for the Anthropic and OpenAI open-source
 - **License Type:** `MIT License (OSI-Approved)`
 
 - **What does the project do & your maintainer role:**
-  > I am the creator and maintainer of `mcp-linter` (repo: `mcp-doctor`), an open-source static/runtime linter and security scanner for agent tool protocols. It inspects JSON schemas, prevents prompt injection inside tool descriptions, enforces blast-radius safety annotations, calculates a 0-100 Health Scorecard, and generates SARIF v2.1.0 security alerts in CI pipelines. Zero runtime dependencies, runnable directly via `npx mcp-linter` with automated fix synthesis.
+  > I am the creator and maintainer of `mcp-linter` (repo: `bakhtiyor-aminzoda/mcp-linter`), an open-source static/runtime linter and security scanner for agent tool protocols. It inspects JSON schemas, prevents prompt injection inside tool descriptions, enforces blast-radius safety annotations, calculates a 0-100 Health Scorecard, and generates SARIF v2.1.0 security alerts in CI pipelines. Zero runtime dependencies, runnable directly via `npx mcp-linter` with automated fix synthesis.
 
 - **How will ChatGPT Pro and API credits be utilized?**
   > Access to ChatGPT Pro and Codex Open Source API credits will be used to:

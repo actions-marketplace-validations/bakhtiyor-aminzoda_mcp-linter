@@ -15,6 +15,7 @@ import type {
   ServerCapabilities,
   Tool,
 } from "./types.js";
+import { InitializeRejectedError } from "../transport/errors.js";
 import { RpcError } from "../transport/jsonrpc.js";
 import type { StdioClient } from "../transport/stdio.js";
 import { VERSION } from "../version.js";
@@ -52,11 +53,17 @@ export async function collectSnapshot(
   command: string,
   options: CollectOptions,
 ): Promise<ServerSnapshot> {
-  const initializeRaw = await client.request("initialize", {
-    protocolVersion: options.requestedProtocolVersion,
-    capabilities: { roots: { listChanged: false } },
-    clientInfo: CLIENT_INFO,
-  });
+  let initializeRaw: JsonValue;
+  try {
+    initializeRaw = await client.request("initialize", {
+      protocolVersion: options.requestedProtocolVersion,
+      capabilities: { roots: { listChanged: false } },
+      clientInfo: CLIENT_INFO,
+    });
+  } catch (error) {
+    if (error instanceof RpcError) throw new InitializeRejectedError(error.code, error.message);
+    throw error;
+  }
   const initialize = parseInitializeResult(initializeRaw);
   client.notify("notifications/initialized");
 

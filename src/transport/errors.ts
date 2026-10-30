@@ -48,6 +48,20 @@ export class RequestTimeoutError extends DoctorError {
   }
 }
 
+/** The server answered `initialize` with a JSON-RPC error, so there is no session to audit. */
+export class InitializeRejectedError extends DoctorError {
+  constructor(
+    readonly code: number,
+    readonly reason: string,
+  ) {
+    super(
+      `The server rejected \`initialize\` (JSON-RPC error ${code}): ${reason}\n` +
+        `Check the server's required configuration — API keys, tokens or environment variables.`,
+    );
+    this.name = "InitializeRejectedError";
+  }
+}
+
 /**
  * @deprecated Empty capabilities are evaluated as an audit finding by rule `protocol/no-capabilities`
  * and reported in `AuditReport` rather than thrown as a fatal transport exception.
