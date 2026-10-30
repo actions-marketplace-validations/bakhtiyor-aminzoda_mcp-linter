@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { auditServer } from '../src/cli/audit-command.js';
+import { InitializeRejectedError } from '../src/transport/errors.js';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -56,5 +57,21 @@ describe('End-to-End MCP Audit', () => {
     const finding = report.findings.find((f) => f.ruleId === 'protocol/no-capabilities');
     expect(finding?.severity).toBe('error');
     expect(report.summary.error).toBeGreaterThanOrEqual(1);
+  });
+
+  it('reports a rejected initialize as a clean DoctorError instead of a raw RpcError', async () => {
+    const serverPath = path.resolve(__dirname, 'fixtures', 'initialize-error-server.js');
+    const audit = auditServer({
+      command: 'node',
+      commandArgs: [serverPath],
+      cwd: process.cwd(),
+      env: {},
+      timeoutMs: 10000,
+      maxPages: 50,
+      ruleOverrides: {},
+    });
+
+    await expect(audit).rejects.toBeInstanceOf(InitializeRejectedError);
+    await expect(audit).rejects.toThrow(/rejected `initialize` \(JSON-RPC error -32001\): Not authenticated/);
   });
 });

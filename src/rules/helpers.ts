@@ -48,9 +48,10 @@ const READ_ONLY_TOKENS = new Set([
   "lookup",
   "stat",
   "export",
-  "download",
   "preview",
 ]);
+// "download" is deliberately absent: download_* tools usually write the file to
+// disk (e.g. Figma's download_figma_images), so they are not read-only.
 
 export type NameIntent = "destructive" | "read-only" | "unknown";
 
